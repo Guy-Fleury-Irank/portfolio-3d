@@ -1,0 +1,18 @@
+# ============================================================
+# Portfolio 3D — .gitignore racine (repo : docs + app portfolio-3d)
+# ============================================================
+
+# Assets lourds / bruts locaux (hors git)
+# Les vidéos seront compressées (webm/H.264) puis placées dans
+# portfolio-3d/public/{videos,audio} à la Milestone 11.
+# Donut1.glb est déjà copié dans portfolio-3d/public/models/.
+/ressources_vids&audios/
+
+# Journaux de setup / logs locaux (ne pas versionner)
+scaffold.log
+install*.log
+build.log
+dev.log
+*/install*.log
+*/build.log
+*/dev.log
