@@ -49,7 +49,7 @@ export default function PillarFrame({
         </div>
 
         {/* Indicateur "camera verrouillee" (M8) */}
-        <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-xs text-zinc-400">
+        <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/3 px-3 py-1.5 text-xs text-zinc-400">
           <span
             className="h-2 w-2 rounded-full"
             style={{

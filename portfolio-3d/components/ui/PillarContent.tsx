@@ -16,7 +16,7 @@ export default function PillarContent({ id }: { id: PillarId }) {
       {sections.map((s, i) => (
         <section
           key={i}
-          className="flex min-h-[64vh] flex-col gap-3 rounded-xl border border-white/5 p-6 transition-transform duration-300 hover:translate-y-[-2px]"
+          className="flex min-h-[64vh] flex-col gap-3 rounded-xl border border-white/5 p-6 transition-transform duration-300 hover:-translate-y-0.5"
         >
           <h2 className="text-2xl font-bold" style={{ color: pillar.color }}>
             {s.title}

@@ -10,7 +10,7 @@ export default function Hero() {
       <div className="max-w-3xl space-y-6">
         <h1 className="text-balance text-4xl font-extrabold tracking-tight text-zinc-100 sm:text-6xl">
           Mon nom c&apos;est{" "}
-          <span className="bg-gradient-to-r from-cyan-300 via-fuchsia-400 to-emerald-300 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-cyan-300 via-fuchsia-400 to-emerald-300 bg-clip-text text-transparent">
             Guy Fleury Irankunda
           </span>
           <span aria-hidden="true">…</span>

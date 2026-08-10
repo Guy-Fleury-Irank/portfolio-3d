@@ -31,7 +31,7 @@ export default function Scene() {
           camera={{ position: [0, 2.2, 7], fov: 50, near: 0.1, far: 500 }}
           dpr={[1, 2]}
           gl={{ antialias: true, alpha: true }}
-          className="!pointer-events-none"
+          className="pointer-events-none!"
           // Milestone 6 : la 3D est interactive (raycaster) SANS bloquer l'UI HTML.
           // Écoute les événements sur le body (coordonnées client), le canvas
           // reste en pointer-events:none → les cartes/liens HTML restent cliquables.
