@@ -1,30 +1,52 @@
 /**
- * La structure triangulaire centrale (squelette Milestone 1).
- * - 3 sphères (piliers) reliées par des arêtes lumineuses (Line).
- * - Rotation automatique lue depuis le store Zustand (`isRotating`).
- * → Géométrie fractale GLSL + InstancedMesh + Bloom : Milestones 3-4.
+ * La structure triangulaire centrale (vraie construction — Milestone 3).
+ *
+ * - 3 sphères Dyson (piliers) aux sommets.
+ * - **Champ fractal de Sierpinski** + **arêtes câblées** rendus via
+ *   `InstancedMesh` (drei `<Instances>`) avec un **ShaderMaterial GLSL**
+ *   (pulsation par instance, dégradé des 3 couleurs, atténuation distance).
+ *   → « 10 000 triangles au coût d'une seule » (règle d'or du cahier des charges).
+ * - Rotation automatique pilotée par le store Zustand (`isRotating`).
  */
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
-import { Line } from "@react-three/drei";
+import { Instances, Instance, Line } from "@react-three/drei";
 import { PILLARS } from "@/lib/data";
 import { useStore } from "@/store/useStore";
+import { buildFractalInstances } from "@/lib/fractal";
 import SpherePillar from "./SpherePillar";
+import {
+  fractalVertexShader,
+  fractalFragmentShader,
+} from "./fractalShaders";
+
+/** Inclinaison douce de la structure en vue HOME (elle "flotte" en biais). */
+const FRACTAL_TILT = -0.35;
 
 export default function FractalTriangle() {
   const group = useRef<THREE.Group>(null);
+  const matRef = useRef<THREE.ShaderMaterial>(null);
   const isRotating = useStore((s) => s.isRotating);
 
+  const instances = useMemo(() => buildFractalInstances(), []);
+  const uniforms = useMemo(() => ({ uTime: { value: 0 } }), []);
+  const count = instances.length;
+
+  // Inclinaison initiale (x) posée une seule fois au montage pour ne pas
+  // écraser la rotation.y incrémentée dans useFrame (R3F n'a pas de prop rotation).
+  useEffect(() => {
+    if (group.current) group.current.rotation.set(FRACTAL_TILT, 0, 0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   useFrame((_, delta) => {
-    if (group.current && isRotating) {
-      group.current.rotation.y += delta * 0.15;
-    }
+    if (matRef.current) matRef.current.uniforms.uTime.value += delta;
+    if (group.current && isRotating) group.current.rotation.y += delta * 0.15;
   });
 
-  // Arêtes : les 3 sommets en boucle fermée (v0 → v1 → v2 → v0).
   const edgePoints = [
     ...PILLARS.map((p) => new THREE.Vector3(...p.position)),
     new THREE.Vector3(...PILLARS[0].position),
@@ -35,13 +57,36 @@ export default function FractalTriangle() {
       {PILLARS.map((p) => (
         <SpherePillar key={p.id} pillarId={p.id} />
       ))}
+
+      {/* Champ fractal — InstancedMesh + shader GLSL */}
+      <Instances limit={count} frustumCulled={false}>
+        <tetrahedronGeometry args={[1, 0]} />
+        <shaderMaterial
+          ref={matRef}
+          vertexShader={fractalVertexShader}
+          fragmentShader={fractalFragmentShader}
+          uniforms={uniforms}
+        />
+        {instances.map((it, i) => (
+          <Instance
+            key={i}
+            position={it.position.toArray()}
+            quaternion={it.quaternion.toArray()}
+            scale={it.scale.toArray()}
+            color={it.color}
+          />
+        ))}
+      </Instances>
+
+      {/* Léger contour du triangle pour la lisibilité */}
       <Line
         points={edgePoints}
         color="#8a94ff"
-        lineWidth={1.5}
+        lineWidth={1}
         transparent
-        opacity={0.85}
+        opacity={0.22}
       />
     </group>
   );
 }
+

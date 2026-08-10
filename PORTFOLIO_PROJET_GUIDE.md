@@ -3,7 +3,7 @@
 > **Document vivant de référence et de suivi incrémental.**
 > Ce fichier consolide l'intégralité des cahiers des charges (`contenu_portfolio_et_fractale.md`, `optimisation_assets_portfolio.md`, `prompt_cline_portfolio_scenario.md`) et documente **tout le travail effectué**, étape par étape, jusqu'à l'atteinte de l'objectif final.
 >
-> **Dernière mise à jour :** 10 Août 2026 — Milestone 0 ✅ + Milestone 1 ✅ (Layout Canvas persistant + Store)
+> **Dernière mise à jour :** 10 Août 2026 — Milestones 0 ✅ + 1 ✅ + 3 ✅ (Triangle fractal : InstancedMesh + shaders GLSL)
 
 ---
 
@@ -250,10 +250,23 @@ portfolio-3d/
 - [ ] ⬜ `SpaceEnvironment` (étoiles/particules)
 - [ ] ⬜ Fond spatial sombre + lights de base
 
-### Milestone 3 — Scène 3D : Triangle fractal
-- [ ] ⬜ Construction du triangle (3 sphères + arêtes)
-- [ ] ⬜ Shaders GLSL pour la géométrie fractale
-- [ ] ⬜ InstancedMesh pour la répétition
+### Milestone 3 — Scène 3D : Triangle fractal ✅ COMPLÈTE (10 Août 2026)
+- [x] ✅ **Construction du triangle** (3 sphères Dyson + arêtes "câbles" lumineuses)
+- [x] ✅ **Shaders GLSL** pour la géométrie fractale (`fractalShaders.ts`)
+- [x] ✅ **InstancedMesh pour la répétition** — `drei <Instances>` (990 instances / 1 draw call)
+
+> **📌 Récapitulatif Milestone 3 :**
+> - **`lib/fractal.ts`** — générateur de la structure :
+>   - **Champ de Sierpinski** : remplissage de l'intérieur du triangle géant en unités triangulaires récursives (3^6 = 729, côté S/2^6), avec zone de dégagement autour des 3 sphères.
+>   - **Arêtes "câbles"** : 3 hélices de fragments par arête (structures longitudinales complexes / géométrie intriquée).
+>   - → **990 instances** au total (smoke test : 0 NaN, étendue Y ±0,15 en 3D).
+> - **`components/three/fractalShaders.ts`** — **shaders GLSL** :
+>   - Vertex : "respiration" par instance (phase dérivée de `instanceMatrix`), `vColor` depuis `instanceColor`.
+>   - Fragment : pulsation douce + atténuation par distance + correction gamma.
+> - **`FractalTriangle.tsx`** : `InstancedMesh` via `drei <Instances>/<Instance>` + `ShaderMaterial` ; chaque sommet garde sa `SpherePillar` ; contour `Line` discret ; inclinaison `x=-0.35` + rotation auto pilotée par le store.
+> - **Couleurs** : dégradé **barycentrique** des 3 couleurs des piliers (Travail/Art/Argent) — la structure "respire" les trois thèmes.
+> - **Vérification :** `npm run build` ✅ (compile 43s, type-check OK, 5 routes statiques) • `npm run dev` ✅ (Ready 2,5s, HTTP 200 sur les 4 routes, aucune erreur) • smoke test runtime du générateur ✅.
+> - **Note** : Bloom/Matcap/pulsation des sphères (Milestone 4), interaction clic (6), figement caméra exact (8).
 
 ### Milestone 4 — Matériaux & Shaders
 - [ ] ⬜ Matcap pour textures métal/organique
