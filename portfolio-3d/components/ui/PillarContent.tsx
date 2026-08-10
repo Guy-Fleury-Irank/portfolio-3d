@@ -1,4 +1,5 @@
 import { PILLARS, PILLAR_SECTIONS, type PillarId } from "@/lib/data";
+import MediaBlock from "@/components/ui/MediaBlock";
 
 /** Contenu UI scrollable du pilier (Milestone 8/9).
     Thematise par couleur de pilier ; defile en premier plan pendant que le
@@ -22,7 +23,9 @@ export default function PillarContent({ id }: { id: PillarId }) {
             {s.title}
           </h2>
 
-          {s.links ? (
+          {s.media ? (
+            <MediaBlock media={s.media} accentColor={pillar.color} />
+          ) : s.links ? (
             <div className="mt-2 grid gap-3 sm:grid-cols-2">
               {s.links.map((l) => (
                 <a

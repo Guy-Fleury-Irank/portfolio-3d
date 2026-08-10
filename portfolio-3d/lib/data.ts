@@ -67,10 +67,22 @@ export interface PillarLink {
   description?: string;
 }
 
+export interface PillarMediaItem {
+  label: string;
+  url: string;
+}
+
+export interface PillarMedia {
+  kind: "video" | "playlist";
+  title?: string;
+  items: PillarMediaItem[];
+}
+
 export interface PillarSection {
   title: string;
   text?: string;
   links?: PillarLink[];
+  media?: PillarMedia[];
 }
 
 /**
@@ -131,7 +143,33 @@ export const PILLAR_SECTIONS: Record<PillarId, PillarSection[]> = {
     },
     {
       title: "Musique & Son",
-      text: "Pratique piano (jamming accords Let it Be) ; chants liturgiques russes (voix d'Oktavist).",
+      media: [
+        {
+          kind: "video",
+          title: "Pratique Piano — « Let it Be »",
+          items: [
+            {
+              label: "Piano — Let it Be (pratique perso)",
+              url: "/videos/art-piano-let-it-be.mp4",
+            },
+          ],
+        },
+        {
+          kind: "playlist",
+          title: "Chants liturgiques russes — Basse Profondo",
+          items: [
+            {
+              label: "Tchaïkovski — Hymn of the Cherubim (local)",
+              url: "/videos/art-choeur-russe-chant.mp4",
+            },
+            { label: "Liturgie russe 1", url: "https://youtu.be/MtvZ3rMPwlM?si=MGvGF_96xKmTurSj" },
+            { label: "Liturgie russe 2", url: "https://youtu.be/IGRhuZ2EE78?si=eadIMuYBA0mvLEFY" },
+            { label: "Liturgie russe 3", url: "https://youtu.be/pI8qFWQa4YQ?si=vFyD6TjkTNmA6XpE" },
+            { label: "Liturgie russe 4", url: "https://youtu.be/n8BwsZqTyr0?si=gcj-4R-RskEnOBux" },
+            { label: "Liturgie russe 5", url: "https://youtu.be/wSrDbDu9HmE?si=Yd2Oge66Ipm7X3nY" },
+          ],
+        },
+      ],
     },
     {
       title: "Inspiration",

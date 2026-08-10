@@ -3,7 +3,7 @@
 > **Document vivant de référence et de suivi incrémental.**
 > Ce fichier consolide l'intégralité des cahiers des charges (`contenu_portfolio_et_fractale.md`, `optimisation_assets_portfolio.md`, `prompt_cline_portfolio_scenario.md`) et documente **tout le travail effectué**, étape par étape, jusqu'à l'atteinte de l'objectif final.
 >
-> **Dernière mise à jour :** 10 Août 2026 — Milestones 0 ✅ + 1 ✅ + 3 ✅ + 4 ✅ + 5 ✅ + 6 ✅ + 7 ✅ + 8 ✅ + 9 ✅ + 10 ✅ (Hero+Footer / Pages Piliers+verrou caméra / GSAP scroll magique / Pilier Travail cartes GitHub)
+> **Dernière mise à jour :** 10 Août 2026 — Milestones 0 ✅ + 1 ✅ + 3 ✅ + 4 ✅ + 5 ✅ + 6 ✅ + 7 ✅ + 8 ✅ + 9 ✅ + 10 ✅ + 11 ✅ (… / Pilier Travail cartes GitHub / Pilier Art lecteurs media + audio spatial)
 
 ---
 
@@ -345,10 +345,13 @@ portfolio-3d/
 
 > **📌 Récapitulatif Milestone 10 :** les cartes projet du pilier Travail sont thématisées (bleu) et scrollent au-dessus du triangle 3D verrouillé sur le sommet bleu. Validation : `npm run build` ✅ (7 routes statiques) • `npm run dev` ✅ HTTP 200 sur `/travail` (5 cartes + liens GitHub + badges stack présents). Prochaine étape : **Milestone 11 — Pilier Art**.
 
-### Milestone 11 — Pilier Art
-- [ ] ⬜ Vidéo piano "Let it Be" (local optimisé)
-- [ ] ⬜ Lecteur chants liturgiques russes
-- [ ] ⬜ PositionalAudio spatial sur la sphère Art
+### Milestone 11 — Pilier Art ✅ COMPLÈTE (10 Août 2026)
+- [x] ✅ **Vidéo piano "Let it Be" (local)** — `public/videos/art-piano-let-it-be.mp4` (11 Mo, copié depuis `ressources_vids&audios/`), rendu par lecteur léger.
+- [x] ✅ **Lecteur chants liturgiques russes** — playlist : Tchaïkovski *Hymn of the Cherubim* (local, 72 Mo) + 5 vidéos YouTube Basse Profondo.
+- [x] ✅ **PositionalAudio spatial sur la sphère Art** — `<PositionalAudio>` (drei) activé au premier geste utilisateur (résout l'autoplay) ; volume accru à l'approche de la caméra (coup de génie M9 — zoom). Toggle utilisateur (store `artAudioEnabled`), fichier attendu : `public/audio/art-choir-spatial.mp3` (déposable plus tard sans casser le build).
+- [x] ✅ Lecteur `react-player` code‑splitté (`next/dynamic ssr:false`) → chargé uniquement sur `/art` (léger).
+
+> **📌 Récapitulatif Milestone 11 :** `MediaBlock` (client) rend la playlist (vidéo locale + YouTube) avec un lecteur light chargé à la demande ; l'audio spatial 3D est câblé sur la sphère Art derrière un toggle — l'utilisateur peut déposer son fichier dans `public/audio/` *après coup* sans aucune modification de code. Validation : `npm run build` ✅ + `npm run dev` ✅ HTTP 200 `/art` + mp4 statiques 200. Prochaine étape : **Milestone 12 — Pilier Argent**.
 
 ### Milestone 12 — Pilier Argent
 - [ ] ⬜ Vidéos Predictive History (`react-player light`)

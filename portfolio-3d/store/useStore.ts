@@ -18,12 +18,15 @@ interface StoreState {
   isRotating: boolean;
   /** Progression du scroll GSAP (recul / éjection du triangle) — Milestone 9. */
   pillarScrollProgress: number;
+  /** M11 — audio spatial posé sur la sphère Art (activé par l'utilisateur). */
+  artAudioEnabled: boolean;
 
   setView: (view: ViewState) => void;
   goHome: () => void;
   goToPillar: (p: PillarId) => void;
   setRotating: (rotating: boolean) => void;
   setPillarScrollProgress: (progress: number) => void;
+  setArtAudioEnabled: (v: boolean) => void;
 }
 
 export const useStore = create<StoreState>((set) => ({
@@ -31,6 +34,7 @@ export const useStore = create<StoreState>((set) => ({
   activePillar: null,
   isRotating: true,
   pillarScrollProgress: 0,
+  artAudioEnabled: false,
 
   setView: (view) =>
     set({
@@ -46,4 +50,6 @@ export const useStore = create<StoreState>((set) => ({
   setRotating: (isRotating) => set({ isRotating }),
 
   setPillarScrollProgress: (pillarScrollProgress) => set({ pillarScrollProgress }),
+
+  setArtAudioEnabled: (artAudioEnabled) => set({ artAudioEnabled }),
 }));
