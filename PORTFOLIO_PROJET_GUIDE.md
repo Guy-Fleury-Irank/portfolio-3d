@@ -3,7 +3,7 @@
 > **Document vivant de référence et de suivi incrémental.**
 > Ce fichier consolide l'intégralité des cahiers des charges (`contenu_portfolio_et_fractale.md`, `optimisation_assets_portfolio.md`, `prompt_cline_portfolio_scenario.md`) et documente **tout le travail effectué**, étape par étape, jusqu'à l'atteinte de l'objectif final.
 >
-> **Dernière mise à jour :** 10 Août 2026 — Milestones 0 ✅ + 1 ✅ + 3 ✅ (Triangle fractal : InstancedMesh + shaders GLSL)
+> **Dernière mise à jour :** 10 Août 2026 — Milestones 0 ✅ + 1 ✅ + 3 ✅ + 4 ✅ (Matériaux : Matcap + Bloom ciblé par calques + pulsation)
 
 ---
 
@@ -268,10 +268,17 @@ portfolio-3d/
 > - **Vérification :** `npm run build` ✅ (compile 43s, type-check OK, 5 routes statiques) • `npm run dev` ✅ (Ready 2,5s, HTTP 200 sur les 4 routes, aucune erreur) • smoke test runtime du générateur ✅.
 > - **Note** : Bloom/Matcap/pulsation des sphères (Milestone 4), interaction clic (6), figement caméra exact (8).
 
-### Milestone 4 — Matériaux & Shaders
-- [ ] ⬜ Matcap pour textures métal/organique
-- [ ] ⬜ Bloom ciblé par calques
-- [ ] ⬜ Pulsation lumineuse des sphères
+### Milestone 4 — Matériaux & Shaders ✅ COMPLÈTE (10 Août 2026)
+- [x] ✅ **Matcap pour textures métal/organique** — `MeshMatcapMaterial` + textures **procédurales** (0 asset)
+- [x] ✅ **Bloom ciblé par calques** — `@react-three/postprocessing` : `Selection` + `Select` + `SelectiveBloom` (layer 8)
+- [x] ✅ **Pulsation lumineuse des sphères** — respiration échelle + intensité propre à chaque pilier
+
+> **📌 Récapitulatif Milestone 4 :**
+> - **`components/three/matcapFactory.ts`** — textures **Matcap procédurales** (CanvasTexture 256×256, cache global par couleur) : halo "lit", couleur de base du pilier, reflet spéculaire → rendu métal/organique ultra-léger (éclairage cuit, 0 calcul de lumière en temps réel, règle du cahier des charges).
+> - **`SpherePillar.tsx`** : `MeshMatcapMaterial` + **pulsation lumineuse** (échelle `1 ± 0.06` + intensité `0.92 ↔ 1.08`, phase propre à chaque pilier) + marquage **`<Select enabled>`** (selection layer) pour le bloom.
+> - **`Scene.tsx`** : `<Selection>` (contexte) + **`<EffectComposer>`** (multisampling 4) + **`<SelectiveBloom selectionLayer={8} lights={[directionalLight, pointLight]} />`** — le glow ne s'applique **qu'aux 3 sphères Dyson** (depth-mask + calques), jamais au vide spatial ni aux étoiles. Lights déplacées dans `Scene` (refs requises par SelectiveBloom).
+> - **Vérification :** `npm run build` ✅ (compile 50s, type-check 9s, 5 routes statiques) • `npm run dev` ✅ (Ready 1s, HTTP 200 sur les 4 routes, aucune erreur) • *Simple incident de cache `.next` (build puis dev) résolu en purgeant `.next`.*
+> - **Note** : PositionalAudio sur la sphère Art (11), interaction clic (6), DoF caméra (5).
 
 ### Milestone 5 — Caméra R3F & Animations
 - [ ] ⬜ `CameraRig` (vue home, focus/zoom coins)
