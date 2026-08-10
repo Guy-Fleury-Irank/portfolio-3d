@@ -3,7 +3,7 @@
 > **Document vivant de référence et de suivi incrémental.**
 > Ce fichier consolide l'intégralité des cahiers des charges (`contenu_portfolio_et_fractale.md`, `optimisation_assets_portfolio.md`, `prompt_cline_portfolio_scenario.md`) et documente **tout le travail effectué**, étape par étape, jusqu'à l'atteinte de l'objectif final.
 >
-> **Dernière mise à jour :** 10 Août 2026 — Milestone 0 (Initialisation du projet) ✅ COMPLÈTE
+> **Dernière mise à jour :** 10 Août 2026 — Milestone 0 ✅ + Milestone 1 ✅ (Layout Canvas persistant + Store)
 
 ---
 
@@ -225,10 +225,26 @@ portfolio-3d/
 > - **Git :** un seul dépôt à la racine `portfolio/` ; `.gitignore` racine exclut `ressources_vids&audios/`.
 > - **Vérification :** `npm run build` ✅ (compilation 67s, type-check OK, routes `/` + `/_not-found` statiques) • `npm run dev` ✅ (Ready, HTTP 200).
 
-### Milestone 1 — Layout + Canvas global + Store
-- [ ] ⬜ Layout racine avec Canvas R3F persistant
-- [ ] ⬜ Zustand store (vue, caméra, rotation)
-- [ ] ⬜ Structure des composants 3D vides
+### Milestone 1 — Layout + Canvas global + Store ✅ COMPLÈTE (10 Août 2026)
+- [x] ✅ **Layout racine** avec Canvas R3F persistant (`layout.tsx` → `SceneCanvas` client + `dynamic ssr:false`)
+- [x] ✅ **Zustand store** (vue, caméra, rotation) — `store/useStore.ts`
+- [x] ✅ **Structure des composants 3D** (squelette) — `Scene`, `SpaceEnvironment`, `FractalTriangle`, `SpherePillar`, `CameraRig`
+
+> **📌 Récapitulatif Milestone 1 :**
+> - **Persistance du Canvas :** le Canvas R3F est monté **une seule fois** dans le `layout.tsx` (fixe, `z-0`, `pointer-events-none`), derrière le contenu des pages (`z-10`, fond transparent). Il n'est **jamais rechargé** entre les navigations (`Link`).
+> - **Wrapper client** : `SceneCanvas.tsx` (`'use client'` + `next/dynamic` `{ ssr:false, loading: <Loader/> }`) — nécessaire car `ssr:false` n'est pas autorisé dans un Server Component.
+> - **Store Zustand** (`view`, `activePillar`, `isRotating`, `pillarScrollProgress`) + actions (`setView`, `goHome`, `goToPillar`, `setRotating`…).
+> - **Composants 3D :**
+>   - `Scene.tsx` : `<Canvas>` global + `<Suspense>` (règle d'or §6.2).
+>   - `SpaceEnvironment.tsx` : fond sombre `#05060f`, lights, `<Stars>` drei *(couvre déjà l'essentiel de la Milestone 2)*.
+>   - `FractalTriangle.tsx` : 3 sphères + arêtes `Line`, rotation auto lue depuis le store.
+>   - `SpherePillar.tsx` : sphère Dyson aux couleurs/chaleur du pilier.
+>   - `CameraRig.tsx` : caméra home vs focus pilier, transitions lerp fluides.
+> - **UI :** `Loader.tsx` (fallback Suspense animé), `BackButton.tsx` (bouton « Accueil »).
+> - **Données :** `lib/data.ts` — `PILLARS` (Travail/Art/Argent, couleurs, positions des 3 sommets), `TRIANGLE_RADIUS`, module pur (importable serveur/client).
+> - **Routing :** `/` (hero) + `/travail`, `/art`, `/argent` (stubs + BackButton). Métadonnées mises à jour.
+> - **Vérification :** `npm run build` ✅ (compile 12s, type-check OK, 5 routes statiques) • `npm run dev` ✅ (Ready 1,6s, HTTP 200 sur les 4 routes, aucun warning/erreur).
+> - **À noter (Milestones suivantes) :** interaction clic sur les sommets (6), figement exact de la caméra par pilier (8), GSAP scroll (9), géométrie fractale GLSL + InstancedMesh (3), Matcap/Bloom/pulsation (4).
 
 ### Milestone 2 — Scène 3D : Espace & Étoiles
 - [ ] ⬜ `SpaceEnvironment` (étoiles/particules)

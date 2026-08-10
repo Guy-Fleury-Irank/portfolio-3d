@@ -11,8 +11,8 @@
 # Journaux de setup / logs locaux (ne pas versionner)
 scaffold.log
 install*.log
-build.log
-dev.log
+build*.log
+dev*.log
 */install*.log
-*/build.log
-*/dev.log
+*/build*.log
+*/dev*.log
