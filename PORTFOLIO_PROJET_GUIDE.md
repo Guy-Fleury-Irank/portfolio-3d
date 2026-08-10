@@ -3,7 +3,7 @@
 > **Document vivant de référence et de suivi incrémental.**
 > Ce fichier consolide l'intégralité des cahiers des charges (`contenu_portfolio_et_fractale.md`, `optimisation_assets_portfolio.md`, `prompt_cline_portfolio_scenario.md`) et documente **tout le travail effectué**, étape par étape, jusqu'à l'atteinte de l'objectif final.
 >
-> **Dernière mise à jour :** 10 Août 2026 — Milestones 0 ✅ + 1 ✅ + 3 ✅ + 4 ✅ + 5 ✅ + 6 ✅ (Caméra DoF + sommets cliquables)
+> **Dernière mise à jour :** 10 Août 2026 — Milestones 0 ✅ + 1 ✅ + 3 ✅ + 4 ✅ + 5 ✅ + 6 ✅ + 7 ✅ (Hero + Footer coordonnées)
 
 ---
 
@@ -310,12 +310,15 @@ portfolio-3d/
 >   - **navigation** : `e.stopPropagation`; un guard (`nativeEvent.target.closest('a,button,...')`) évite toute double action quand un lien HTML au-dessus du canvas est cliqué → `useStore.goToPillar(id)` + `router.push(route)`.
 > - **`components/ui/RouteViewSync.tsx`** (nouveau) : monté dans le `layout` (client) → synchronise **store ↔ route** (`usePathname`) : `goToPillar` sur `/travail|art|argent`, `goHome` ailleurs. Gère **tous les chemins** d'accès à une page (clic sphère 3D, liens du hero, BackButton, bouton retour/avance du navigateur, URL directe) ; sans doublon (store `getState()` — zéro re-render).
 > - **Lien typage R3F v9** : le DOM-event se lit via `e.nativeEvent` (et non `sourceEvent`) — corrigé après erreur TS (`Property 'sourceEvent' does not exist`).
-> - **Vérification :** `npm run build` ✅ (compile 4.9s, type-check 6.1s, 5 routes statiques) • `npm run dev` ✅ (HTTP 200 sur les 4 routes, hero + liens présents, aucune erreur serveur).
+> - **Vérification :** `npm run build` ✅ (compile 15.2s, type-check 7.7s, 7 routes statiques / 4) • `npm run dev` ✅ HTTP 200 sur les 4 routes (hero + footer coordonnées présents, aucune erreur serveur).
 
-### Milestone 7 — Page Accueil UI
-- [ ] ⬜ Hero header minimaliste
-- [ ] ⬜ Footer coordonnées
-- [ ] ⬜ Routing / home
+### Milestone 7 — Page Accueil UI ✅ COMPLÈTE (10 Août 2026)
+- [x] ✅ **Hero header** — extraction en `<Hero />` (server component), typo `text-4xl→6xl`, balayage couleur `cyan→fuchsia→emerald` (thème pilier), paragraphe descriptif + Sous-catégorie "Développeur Junior".
+- [x] ✅ **Nav piliers** — liens `<Link>` dynamiques (map `PILLARS`), bordures colorées par thème, effet hover `scale-105` + glow `ring-cyan-300/40`, `aria-label` d'accessibilité.
+- [x] ✅ **Footer coordonnées** — `<Footer />` (Bujumbura, Burundi / github `Guy-Fleury-Irank` / `mailto:`).
+- [x] ✅ **Routing / home** — `page.tsx` rend `<Hero /> <Footer />` au-dessus du `<SiteCanvas />` (z-0) — prêt pour scroll-bottom (→ M9).
+
+> **📌 Récapitulatif Milestone 7 :** le hero et le footer sont des **server components purs** (zero JS client, SEO-friendly). Couleurs issues du thème des piliers via `@/lib/data` (`PILLARS[].color`). Prochaine étape : **Milestone 8 — Pages Piliers / figement caméra** (ou M9 si priorise le GSAP scroll).
 
 ### Milestone 8 — Pages Piliers / Figement caméra
 - [ ] ⬜ Routes `/travail`, `/art`, `/argent`
