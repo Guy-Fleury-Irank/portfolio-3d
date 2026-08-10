@@ -3,7 +3,7 @@
 > **Document vivant de référence et de suivi incrémental.**
 > Ce fichier consolide l'intégralité des cahiers des charges (`contenu_portfolio_et_fractale.md`, `optimisation_assets_portfolio.md`, `prompt_cline_portfolio_scenario.md`) et documente **tout le travail effectué**, étape par étape, jusqu'à l'atteinte de l'objectif final.
 >
-> **Dernière mise à jour :** 10 Août 2026 — Milestones 0 ✅ + 1 ✅ + 3 ✅ + 4 ✅ + 5 ✅ + 6 ✅ + 7 ✅ (Hero + Footer coordonnées)
+> **Dernière mise à jour :** 10 Août 2026 — Milestones 0 ✅ + 1 ✅ + 3 ✅ + 4 ✅ + 5 ✅ + 6 ✅ + 7 ✅ + 8 ✅ (Hero + Footer coordonnées / Pages Piliers + caméra verrouillée)
 
 ---
 
@@ -320,10 +320,13 @@ portfolio-3d/
 
 > **📌 Récapitulatif Milestone 7 :** le hero et le footer sont des **server components purs** (zero JS client, SEO-friendly). Couleurs issues du thème des piliers via `@/lib/data` (`PILLARS[].color`). Prochaine étape : **Milestone 8 — Pages Piliers / figement caméra** (ou M9 si priorise le GSAP scroll).
 
-### Milestone 8 — Pages Piliers / Figement caméra
-- [ ] ⬜ Routes `/travail`, `/art`, `/argent`
-- [ ] ⬜ Caméra verrouillée sur chaque coin
-- [ ] ⬜ Bouton "Retour/Accueil"
+### Milestone 8 — Pages Piliers / Figement caméra ✅ COMPLÈTE (10 Août 2026)
+- [x] ✅ **Routes** `/travail`, `/art`, `/argent` — chaque page reflète l'identité thématique de son sommet via `<PillarFrame />` (titre couleur pilier + tagline + description).
+- [x] ✅ **Caméra verrouillée sur chaque coin** — `CameraRig` lisse la position + le foyer DoF vers le sommet (`view === "pillar:*"`); rotation gelée (`isRotating=false` dans `FractalTriangle`); synchronisation route↔store par `RouteViewSync` (clic sphere, lien hero, BackButton, back/forward, URL directe). Indicateur visuel « Caméra verrouillée sur ce sommet ».
+- [x] ✅ **Bouton "Retour/Accueil"** — `<BackButton />` fixe en haut à gauche → `goHome()` (relance rotation + recentrage DoF).
+- [x] ✅ **Factorisation** — `<PillarFrame />` (components/ui) partage BackButton, titre couleur pilier, tagline, bloc children placeholder (bulles projet → M10, lecteurs → M11/12).
+
+> **📌 Récapitulatif Milestone 8 :** les 3 pages piliers rendent l'identité thématique du sommet au-dessus du Canvas 3D persistant. Verrouillage caméra + DoF + geste retour validés par `npm run build` (7 routes statiques) et `npm run dev` (HTTP 200 sur `/`, `/travail`, `/art`, `/argent`, aucune erreur serveur). Prochaine étape : **Milestone 9 — GSAP scroll magique**.
 
 ### Milestone 9 — GSAP Scroll (chef-d'œuvre)
 - [ ] ⬜ ScrollTrigger : recul du triangle + rotation auto
