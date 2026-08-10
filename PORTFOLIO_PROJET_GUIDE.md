@@ -3,7 +3,7 @@
 > **Document vivant de référence et de suivi incrémental.**
 > Ce fichier consolide l'intégralité des cahiers des charges (`contenu_portfolio_et_fractale.md`, `optimisation_assets_portfolio.md`, `prompt_cline_portfolio_scenario.md`) et documente **tout le travail effectué**, étape par étape, jusqu'à l'atteinte de l'objectif final.
 >
-> **Dernière mise à jour :** 10 Août 2026 — Milestones 0 ✅ + 1 ✅ + 3 ✅ + 4 ✅ + 5 ✅ + 6 ✅ + 7 ✅ + 8 ✅ (Hero + Footer coordonnées / Pages Piliers + caméra verrouillée)
+> **Dernière mise à jour :** 10 Août 2026 — Milestones 0 ✅ + 1 ✅ + 3 ✅ + 4 ✅ + 5 ✅ + 6 ✅ + 7 ✅ + 8 ✅ + 9 ✅ (Hero + Footer / Pages Piliers + caméra verrouillée / GSAP scroll magique)
 
 ---
 
@@ -328,11 +328,15 @@ portfolio-3d/
 
 > **📌 Récapitulatif Milestone 8 :** les 3 pages piliers rendent l'identité thématique du sommet au-dessus du Canvas 3D persistant. Verrouillage caméra + DoF + geste retour validés par `npm run build` (7 routes statiques) et `npm run dev` (HTTP 200 sur `/`, `/travail`, `/art`, `/argent`, aucune erreur serveur). Prochaine étape : **Milestone 9 — GSAP scroll magique**.
 
-### Milestone 9 — GSAP Scroll (chef-d'œuvre)
-- [ ] ⬜ ScrollTrigger : recul du triangle + rotation auto
-- [ ] ⬜ Contenu UI au premier plan
-- [ ] ⬜ Thèmes de couleur par pilier
-- [ ] ⬜ Scroll up : retour + verrouillage
+### Milestone 9 — GSAP Scroll (chef-d'œuvre) ✅ COMPLÈTE (10 Août 2026)
+- [x] ✅ **ScrollTrigger (GSAP)** → `store.pillarScrollProgress` (scrub:true, bidirectionnel) via `<PillarScrollScene />`.
+- [x] ✅ **Recul du triangle** (background) — `CameraRig` lifte la position + relâche la DoF (range/bokeh) du verrouillage vers la vue d’ensemble au fil du scroll (`lerpVectors lockPos→homePos` par `scroll*0.5`).
+- [x] ✅ **Rotation auto** — `FractalTriangle` pivote lentement (`delta*0.04`) en exploration scroll sur un sommet (effet *as above so below*).
+- [x] ✅ **Contenu UI au 1er plan** — `PillarContent` (cartes thématisées) scroll au-dessus du Canvas z-0.
+- [x] ✅ **Thèmes couleur par pilier** — titres/glow/badges via `PILLARS[].color` (Bleu Trv, Ambre Art, Émeraude Arg).
+- [x] ✅ **Scroll up → retour + verrouillage** — progress→0 ramène la caméra au verrouillage + arrête la rotation ; `<BackButton>` → `/`.
+
+> **📌 Récapitulatif Milestone 9 :** le scénario devient vivant — scroller sur un pilier éloigne la caméra, révèle le triangle fractal qui tourne lentement, tandis que le contenu thématisé défile en premier plan. Validation : `npm run build` ✅ (7 routes statiques) • `npm run dev` ✅ HTTP 200 sur `/`,`/travail`,`/art`,`/argent`, `#pillar-content` + badge présents.
 
 ### Milestone 10 — Pilier Travail
 - [ ] ⬜ Cartes des 5 projets GitHub

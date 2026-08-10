@@ -1,12 +1,12 @@
 /**
  * La structure triangulaire centrale (vraie construction — Milestone 3).
- *
- * - 3 sphères Dyson (piliers) aux sommets.
- * - **Champ fractal de Sierpinski** + **arêtes câblées** rendus via
- *   `InstancedMesh` (drei `<Instances>`) avec un **ShaderMaterial GLSL**
- *   (pulsation par instance, dégradé des 3 couleurs, atténuation distance).
- *   → « 10 000 triangles au coût d'une seule » (règle d'or du cahier des charges).
- * - Rotation automatique pilotée par le store Zustand (`isRotating`).
+ * - 3 spheres Dyson (piliers) aux sommets.
+ * - Champ fractal Sierpinski + aretes cabitees via InstancedMesh (drei <Instances>)
+ *   avec ShaderMaterial GLSL (pulsation par instance, degrade des 3 couleurs,
+ *   atténuation distance). -> "10 000 triangles au cout d'une seule".
+ * - Rotation automatique pilotée par le store Zustand (isRotating).
+ * - Milestone 9 : en exploration (scroll sur un pilier), rotation lente
+ *   "as above so below" pendant que le triangle recule en arriere-plan.
  */
 "use client";
 
@@ -18,10 +18,7 @@ import { PILLARS } from "@/lib/data";
 import { useStore } from "@/store/useStore";
 import { buildFractalInstances } from "@/lib/fractal";
 import SpherePillar from "./SpherePillar";
-import {
-  fractalVertexShader,
-  fractalFragmentShader,
-} from "./fractalShaders";
+import { fractalVertexShader, fractalFragmentShader } from "./fractalShaders";
 
 /** Inclinaison douce de la structure en vue HOME (elle "flotte" en biais). */
 const FRACTAL_TILT = -0.35;
@@ -30,13 +27,16 @@ export default function FractalTriangle() {
   const group = useRef<THREE.Group>(null);
   const matRef = useRef<THREE.ShaderMaterial>(null);
   const isRotating = useStore((s) => s.isRotating);
+  const view = useStore((s) => s.view);
+  // Milestone 9 — progression du scroll (déclenche la rotation lente en exploration).
+  const scroll = useStore((s) => s.pillarScrollProgress);
 
   const instances = useMemo(() => buildFractalInstances(), []);
   const uniforms = useMemo(() => ({ uTime: { value: 0 } }), []);
   const count = instances.length;
 
   // Inclinaison initiale (x) posée une seule fois au montage pour ne pas
-  // écraser la rotation.y incrémentée dans useFrame (R3F n'a pas de prop rotation).
+  // écraser la rotation.y incrémentée dans useFrame (R3F n’a pas de prop rotation).
   useEffect(() => {
     if (group.current) group.current.rotation.set(FRACTAL_TILT, 0, 0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -44,7 +44,16 @@ export default function FractalTriangle() {
 
   useFrame((_, delta) => {
     if (matRef.current) matRef.current.uniforms.uTime.value += delta;
-    if (group.current && isRotating) group.current.rotation.y += delta * 0.15;
+    if (group.current) {
+      if (isRotating) {
+        // Vue accueil : rotation lente continue.
+        group.current.rotation.y += delta * 0.15;
+      } else if (view.startsWith("pillar:") && scroll > 0.001) {
+        // Milestone 9 — en scrollant sur un sommet, le triangle effectue une
+        // rotation lente "as above so below" pendant qu’il se recule en arrière-plan.
+        group.current.rotation.y += delta * 0.04;
+      }
+    }
   });
 
   const edgePoints = [
@@ -89,4 +98,3 @@ export default function FractalTriangle() {
     </group>
   );
 }
-
