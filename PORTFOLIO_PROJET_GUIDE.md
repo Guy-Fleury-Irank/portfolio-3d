@@ -3,7 +3,7 @@
 > **Document vivant de référence et de suivi incrémental.**
 > Ce fichier consolide l'intégralité des cahiers des charges (`contenu_portfolio_et_fractale.md`, `optimisation_assets_portfolio.md`, `prompt_cline_portfolio_scenario.md`) et documente **tout le travail effectué**, étape par étape, jusqu'à l'atteinte de l'objectif final.
 >
-> **Dernière mise à jour :** 10 Août 2026 — Milestones 0 ✅ + 1 ✅ + 3 ✅ + 4 ✅ + 5 ✅ + 6 ✅ + 7 ✅ + 8 ✅ + 9 ✅ (Hero + Footer / Pages Piliers + caméra verrouillée / GSAP scroll magique)
+> **Dernière mise à jour :** 10 Août 2026 — Milestones 0 ✅ + 1 ✅ + 3 ✅ + 4 ✅ + 5 ✅ + 6 ✅ + 7 ✅ + 8 ✅ + 9 ✅ + 10 ✅ (Hero+Footer / Pages Piliers+verrou caméra / GSAP scroll magique / Pilier Travail cartes GitHub)
 
 ---
 
@@ -338,9 +338,12 @@ portfolio-3d/
 
 > **📌 Récapitulatif Milestone 9 :** le scénario devient vivant — scroller sur un pilier éloigne la caméra, révèle le triangle fractal qui tourne lentement, tandis que le contenu thématisé défile en premier plan. Validation : `npm run build` ✅ (7 routes statiques) • `npm run dev` ✅ HTTP 200 sur `/`,`/travail`,`/art`,`/argent`, `#pillar-content` + badge présents.
 
-### Milestone 10 — Pilier Travail
-- [ ] ⬜ Cartes des 5 projets GitHub
-- [ ] ⬜ Vision future (C++/Rust/robotique)
+### Milestone 10 — Pilier Travail ✅ COMPLÈTE (10 Août 2026)
+- [x] ✅ **Cartes GitHub interactives** — 5 projets (waste-management-app, uni_fuel_api, School-Management-System, MAE, Olympus_Bar) sous forme de cartes thématiques (Bleu/Tech) ouvrant les dépôts dans un nouvel onglet, avec badge de stack.
+- [x] ✅ **Vision future** — section « Vers l’avenir » (C++/Rust, hardware & robotique).
+- [x] ✅ Rendu générique `<PillarContent>` (texte ou cartes liens) — réutilisable par M11/M12.
+
+> **📌 Récapitulatif Milestone 10 :** les cartes projet du pilier Travail sont thématisées (bleu) et scrollent au-dessus du triangle 3D verrouillé sur le sommet bleu. Validation : `npm run build` ✅ (7 routes statiques) • `npm run dev` ✅ HTTP 200 sur `/travail` (5 cartes + liens GitHub + badges stack présents). Prochaine étape : **Milestone 11 — Pilier Art**.
 
 ### Milestone 11 — Pilier Art
 - [ ] ⬜ Vidéo piano "Let it Be" (local optimisé)

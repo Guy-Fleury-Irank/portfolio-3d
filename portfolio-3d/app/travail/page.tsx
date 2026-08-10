@@ -6,8 +6,9 @@ export default function TravailPage() {
       id="travail"
       description="Engineering & Systems — projets JavaScript, Java (Spring Boot / Hibernate), TypeScript et HTML/CSS."
     >
-      <p className="text-sm text-zinc-500">
-        Cartes interactives & projets GitHub → Milestone 10.
+      <p className="text-sm text-zinc-400">
+        Cartes projet ci-dessus → dépôts GitHub. Contenu enrichi (lecteurs /
+        vidéos) viendra s&apos;ajouter prochainement (M11 / M12).
       </p>
     </PillarFrame>
   );

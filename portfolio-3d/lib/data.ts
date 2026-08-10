@@ -60,9 +60,17 @@ export const PILLARS: Pillar[] = [
 export const pillarById = (id: PillarId): Pillar =>
   PILLARS.find((p) => p.id === id) as Pillar;
 
+export interface PillarLink {
+  label: string;
+  href: string;
+  stack?: string;
+  description?: string;
+}
+
 export interface PillarSection {
   title: string;
-  text: string;
+  text?: string;
+  links?: PillarLink[];
 }
 
 /**
@@ -76,9 +84,40 @@ export const PILLAR_SECTIONS: Record<PillarId, PillarSection[]> = {
       title: "Stack technique",
       text: "JavaScript, Java (Spring Boot / Hibernate), TypeScript, HTML + CSS — projets ancrés dans la réalité.",
     },
-    {
+        {
       title: "Projets GitHub",
-      text: "waste-management-app, uni_fuel_api, School-Management-System, MAE, Olympus_Bar.",
+      links: [
+        {
+          label: "waste-management-app",
+          href: "https://github.com/Guy-Fleury-Irank/waste-management-app",
+          stack: "JavaScript",
+          description: "Gestion des déchets — logique métier & UI réactive.",
+        },
+        {
+          label: "uni_fuel_api",
+          href: "https://github.com/Guy-Fleury-Irank/uni_fuel_api",
+          stack: "Java (Spring Boot / Hibernate)",
+          description: "API carburant — persistance Hibernate + JWT.",
+        },
+        {
+          label: "School-Management-System",
+          href: "https://github.com/Guy-Fleury-Irank/School-Management-System",
+          stack: "TypeScript",
+          description: "Système scolaire — plannings, notes, utilisateurs.",
+        },
+        {
+          label: "MAE",
+          href: "https://github.com/Guy-Fleury-Irank/MAE",
+          stack: "HTML + CSS",
+          description: "Site d’agence — typographie vintage, layout fluide.",
+        },
+        {
+          label: "Olympus_Bar",
+          href: "https://github.com/Guy-Fleury-Irank/Olympus_Bar",
+          stack: "HTML + CSS",
+          description: "Site de bar — animations hover, ambiance nocturne.",
+        },
+      ],
     },
     {
       title: "Vers l'avenir",
