@@ -3,17 +3,17 @@
  * Le Canvas reste monté en permanence (à la racine, via SceneCanvas dans le layout).
  * « La caméra et l'objet bougent, pas le canvas. » (cahier des charges §2.2)
  *
- * Milestone 4 : **Bloom ciblé par calques**.
- * - `<Selection>` + `<Select>` (sphere piliers) : les 3 sphères forment la sélection.
- * - `<SelectiveBloom selectionLayer>` : ne fait briller QUE les sphères
- *   (lueur "Sphère de Dyson"), jamais le vide spatial ni les étoiles.
+ * Milestone 4 : **Bloom ciblé par calques** (`Selection`/`Select`/`SelectiveBloom`).
+ * Milestone 5 : **Depth of Field** (`DepthOfField`) — focus piloté par `CameraRig`
+ * (netteté sur la sphère active, profondeur de champ animée).
  */
 "use client";
 
 import { Suspense, useMemo, useRef } from "react";
 import { Canvas } from "@react-three/fiber";
-import { EffectComposer, SelectiveBloom, Selection } from "@react-three/postprocessing";
+import { DepthOfField, EffectComposer, SelectiveBloom, Selection } from "@react-three/postprocessing";
 import * as THREE from "three";
+import type { DepthOfFieldEffect } from "postprocessing";
 import SpaceEnvironment from "./SpaceEnvironment";
 import FractalTriangle from "./FractalTriangle";
 import CameraRig from "./CameraRig";
@@ -21,6 +21,7 @@ import CameraRig from "./CameraRig";
 export default function Scene() {
   const dirLight = useRef<THREE.DirectionalLight>(null);
   const pointLight = useRef<THREE.PointLight>(null);
+  const dofRef = useRef<DepthOfFieldEffect | null>(null);
 
   // Références stables (résolues par SelectiveBloom au montage).
   const bloomLights = useMemo(() => [dirLight, pointLight], []);
@@ -43,7 +44,8 @@ export default function Scene() {
           <pointLight ref={pointLight} position={[0, 3, 0]} intensity={0.4} color="#7aa2ff" />
 
           <FractalTriangle />
-          <CameraRig />
+          {/* CameraRig anime aussi le foyer DoF (focus point + bokeh + range). */}
+          <CameraRig dofRef={dofRef} />
 
           <EffectComposer multisampling={4}>
             <SelectiveBloom
@@ -54,6 +56,13 @@ export default function Scene() {
               mipmapBlur
               luminanceThreshold={0.12}
               luminanceSmoothing={0.25}
+            />
+            <DepthOfField
+              ref={dofRef}
+              focusDistance={7}
+              focusRange={9}
+              bokehScale={3.5}
+              resolutionScale={0.5}
             />
           </EffectComposer>
         </Suspense>

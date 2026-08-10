@@ -3,7 +3,7 @@
 > **Document vivant de référence et de suivi incrémental.**
 > Ce fichier consolide l'intégralité des cahiers des charges (`contenu_portfolio_et_fractale.md`, `optimisation_assets_portfolio.md`, `prompt_cline_portfolio_scenario.md`) et documente **tout le travail effectué**, étape par étape, jusqu'à l'atteinte de l'objectif final.
 >
-> **Dernière mise à jour :** 10 Août 2026 — Milestones 0 ✅ + 1 ✅ + 3 ✅ + 4 ✅ (Matériaux : Matcap + Bloom ciblé par calques + pulsation)
+> **Dernière mise à jour :** 10 Août 2026 — Milestones 0 ✅ + 1 ✅ + 3 ✅ + 4 ✅ + 5 ✅ (Caméra : Depth of Field — focus sphère, transitions animées)
 
 ---
 
@@ -280,9 +280,21 @@ portfolio-3d/
 > - **Vérification :** `npm run build` ✅ (compile 50s, type-check 9s, 5 routes statiques) • `npm run dev` ✅ (Ready 1s, HTTP 200 sur les 4 routes, aucune erreur) • *Simple incident de cache `.next` (build puis dev) résolu en purgeant `.next`.*
 > - **Note** : PositionalAudio sur la sphère Art (11), interaction clic (6), DoF caméra (5).
 
-### Milestone 5 — Caméra R3F & Animations
-- [ ] ⬜ `CameraRig` (vue home, focus/zoom coins)
-- [ ] ⬜ Depth of Field (focus sur sphère, reste flou)
+### Milestone 5 — Caméra R3F & Animations ✅ COMPLÈTE (10 Août 2026)
+- [x] ✅ **`CameraRig`** (vue home, focus/zoom coins) — lerp position + lookAt pilotés par le store
+- [x] ✅ **Depth of Field** (`@react-three/postprocessing`) — focus sur sphère, reste flou, transitions animées
+
+> **📌 Récapitulatif Milestone 5 :**
+> - **`CameraRig.tsx`** — anime désormais **3 grandeurs** en lerp fluide (indépendant du FPS) :
+>   1. **Position caméra** + **lookAt** (existants) ; 2. **Point focal DoF** (lerp vers le sommet du pilier actif ou le centre en vue home) ; 3. **Profondeur de champ** (`focusRange`) et **intensité bokeh** (`bokehScale`).
+> - **`Scene.tsx`** — monté `<DepthOfField ref={dofRef} focusDistance={7} focusRange={9} bokehScale={3.5} resolutionScale={0.5} />` dans l'`EffectComposer` (après le `SelectiveBloom`), ref passée à `CameraRig`.
+> - **Comportement (scénario du cahier des charges) :**
+>   - **Vue HOME** : focus au centre → toute la structure nette, espace étoilé lointain doucement flou (bokeh doux).
+>   - **Zoom pilier** : focus resserré sur la sphère (`focusRange` 9 → 1.6, `bokehScale` 3.5 → 6) → **la sphère devient nette, le reste de la structure et l'espace deviennent flous** (sensation d'échelle).
+>   - **Transitions** : la cible `target` de `DepthOfFieldEffect` recalcule la distance de focus caméra→cible **à chaque frame** → focus glissant naturel pendant les navigations.
+> - **API vérifiée dans les sources installées** : `target: Vector3 | null`, `bokehScale`, `cocMaterial.focusRange` (publics et typés dans `postprocessing` v6.39.4).
+> - **Vérification :** `npm run build` ✅ (compile 19s, type-check 8.6s, 5 routes statiques) • `npm run dev` ✅ (HTTP 200 sur les 4 routes, aucune erreur).
+> - **Note** : interaction clic sommets + transition caméra (6), GSAP scroll (9), PositionalAudio Art (11).
 
 ### Milestone 6 — Interaction clic sommets
 - [ ] ⬜ Raycaster / Html pour les 3 sommets cliquables
