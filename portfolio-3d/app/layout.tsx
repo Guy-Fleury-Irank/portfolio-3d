@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import SceneCanvas from "@/components/three/SceneCanvas";
+import RouteViewSync from "@/components/ui/RouteViewSync";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -31,6 +32,8 @@ export default function RootLayout({
         {/* Canvas 3D GLOBAL & PERSISTANT — monté une seule fois, jamais rechargé
             entre les navigations. « La caméra et l'objet bougent, pas le canvas. » */}
         <SceneCanvas />
+        {/* Synchronise l'état 3D avec la route (clic sphère, liens, back/forward, URL). */}
+        <RouteViewSync />
         {/* Contenu des pages par-dessus (z-10), fond transparent → la 3D reste visible. */}
         <main className="relative z-10">{children}</main>
       </body>

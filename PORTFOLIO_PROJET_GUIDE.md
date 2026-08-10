@@ -3,7 +3,7 @@
 > **Document vivant de référence et de suivi incrémental.**
 > Ce fichier consolide l'intégralité des cahiers des charges (`contenu_portfolio_et_fractale.md`, `optimisation_assets_portfolio.md`, `prompt_cline_portfolio_scenario.md`) et documente **tout le travail effectué**, étape par étape, jusqu'à l'atteinte de l'objectif final.
 >
-> **Dernière mise à jour :** 10 Août 2026 — Milestones 0 ✅ + 1 ✅ + 3 ✅ + 4 ✅ + 5 ✅ (Caméra : Depth of Field — focus sphère, transitions animées)
+> **Dernière mise à jour :** 10 Août 2026 — Milestones 0 ✅ + 1 ✅ + 3 ✅ + 4 ✅ + 5 ✅ + 6 ✅ (Caméra DoF + sommets cliquables)
 
 ---
 
@@ -296,9 +296,21 @@ portfolio-3d/
 > - **Vérification :** `npm run build` ✅ (compile 19s, type-check 8.6s, 5 routes statiques) • `npm run dev` ✅ (HTTP 200 sur les 4 routes, aucune erreur).
 > - **Note** : interaction clic sommets + transition caméra (6), GSAP scroll (9), PositionalAudio Art (11).
 
-### Milestone 6 — Interaction clic sommets
-- [ ] ⬜ Raycaster / Html pour les 3 sommets cliquables
-- [ ] ⬜ Transition caméra + navigation
+### Milestone 6 — Interaction clic sommets ✅ COMPLÈTE (10 Août 2026)
+- [x] ✅ **Raycaster / Html (drei)** pour les 3 sommets cliquables
+- [x] ✅ **Transition caméra + navigation** (store `goToPillar` + `router.push` + sync route)
+
+> **📌 Récapitulatif Milestone 6 :**
+> - **`Scene.tsx`** : `<Canvas>` munte `eventSource={document.body} eventPrefix="client"` → **la 3D est interactive (raycasting) SANS bloquer l'UI HTML** : le canvas reste en `pointer-events:none`, les liens/cartes HTML restent cliquables, et R3F raycast depuis les coordonnées client du body.
+> - **`SpherePillar.tsx`** : chaque sommet possède maintenant :
+>   - une **zone de clic invisible élargie** (`scale={2.8}` × rayon, `meshBasicMaterial` opacity 0 / depthWrite false) → cible de clic généreuse ;
+>   - **raycaster R3F** (`onClick`/`onPointerOver`/`onPointerOut`) avec `stopPropagation` ;
+>   - **curseur `pointer`** au survol + boost d'échelle/luminosité (`HOVER_BOOST`) ;
+>   - **label `Html` (drei)** au-dessus de chaque sphère, discret (opacity 0.7), s'illumine et s'agrandit au survol ;
+>   - **navigation** : `e.stopPropagation`; un guard (`nativeEvent.target.closest('a,button,...')`) évite toute double action quand un lien HTML au-dessus du canvas est cliqué → `useStore.goToPillar(id)` + `router.push(route)`.
+> - **`components/ui/RouteViewSync.tsx`** (nouveau) : monté dans le `layout` (client) → synchronise **store ↔ route** (`usePathname`) : `goToPillar` sur `/travail|art|argent`, `goHome` ailleurs. Gère **tous les chemins** d'accès à une page (clic sphère 3D, liens du hero, BackButton, bouton retour/avance du navigateur, URL directe) ; sans doublon (store `getState()` — zéro re-render).
+> - **Lien typage R3F v9** : le DOM-event se lit via `e.nativeEvent` (et non `sourceEvent`) — corrigé après erreur TS (`Property 'sourceEvent' does not exist`).
+> - **Vérification :** `npm run build` ✅ (compile 4.9s, type-check 6.1s, 5 routes statiques) • `npm run dev` ✅ (HTTP 200 sur les 4 routes, hero + liens présents, aucune erreur serveur).
 
 ### Milestone 7 — Page Accueil UI
 - [ ] ⬜ Hero header minimaliste
