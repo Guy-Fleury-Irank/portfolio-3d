@@ -83,6 +83,7 @@ export interface PillarSection {
   text?: string;
   links?: PillarLink[];
   media?: PillarMedia[];
+  bullets?: string[];
 }
 
 /**
@@ -179,15 +180,44 @@ export const PILLAR_SECTIONS: Record<PillarId, PillarSection[]> = {
   argent: [
     {
       title: "Fondations",
-      text: "Lectures Predictive History — vision du monde & histoire financière (4 vidéos).",
+      text: "Vision du monde & histoire financière — la chaîne Predictive History (Professeur sino-canadien).",
+      media: [
+        {
+          kind: "playlist",
+          title: "Lectures — Predictive History",
+          items: [
+            { label: "Predictive History 1", url: "https://youtu.be/lt8XLz78ZvY?si=Wd5-Xa25HYgpUTja" },
+            { label: "Predictive History 2", url: "https://youtu.be/K-_l9jBGo74?si=gUIlMTtwl2BvQgz6" },
+            { label: "Predictive History 3", url: "https://youtu.be/LvHsg5qtDs8?si=w7h2_C5VOCT8Dn0y" },
+            { label: "Predictive History 4", url: "https://youtu.be/TsD-8FGA84A?si=ItKqF5_qI7f54DRw" },
+          ],
+        },
+      ],
     },
     {
       title: "Digital Garden",
-      text: "Bulles de pensée, cartes, mini-articles : lois invisibles, liberté financière, structure des marchés.",
+      bullets: [
+        "Quelles lois invisibles régissent le monde et l'argent ?",
+        "La liberté financière : mythe bâti ou structure accumulée ?",
+        "D'où vient l'argent, qui le crée — et à qui profite le crédit ?",
+        "Marchés : information, signaux et psychologie des foules.",
+        "L'histoire comme prologue : prévoir en lisant les cycles.",
+      ],
     },
     {
       title: "Ressources",
-      text: "Liens externes d'exploration complémentaire.",
+      links: [
+        {
+          label: "Investopedia",
+          href: "https://www.investopedia.com",
+          description: "Ressource de référence sur la finance, les marchés et les instruments.",
+        },
+        {
+          label: "History of Money",
+          href: "https://en.wikipedia.org/wiki/History_of_money",
+          description: "Origine, évolution et nature de la monnaie à travers l'histoire.",
+        },
+      ],
     },
   ],
 };

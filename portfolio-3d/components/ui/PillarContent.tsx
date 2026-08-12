@@ -23,9 +23,24 @@ export default function PillarContent({ id }: { id: PillarId }) {
             {s.title}
           </h2>
 
-          {s.media ? (
-            <MediaBlock media={s.media} accentColor={pillar.color} />
-          ) : s.links ? (
+          {s.media && <MediaBlock media={s.media} accentColor={pillar.color} />}
+          {s.bullets && (
+            <ul className="mt-2 flex flex-col gap-2">
+              {s.bullets.map((b, bi) => (
+                <li
+                  key={bi}
+                  className="flex items-start gap-3 rounded-lg border border-white/5 bg-white/2 px-4 py-3 text-sm text-zinc-300"
+                >
+                  <span
+                    className="mt-1 h-2 w-2 shrink-0 rounded-full"
+                    style={{ backgroundColor: pillar.color }}
+                  />
+                  {b}
+                </li>
+              ))}
+            </ul>
+          )}
+          {s.links && (
             <div className="mt-2 grid gap-3 sm:grid-cols-2">
               {s.links.map((l) => (
                 <a
@@ -52,13 +67,14 @@ export default function PillarContent({ id }: { id: PillarId }) {
                   {l.description && (
                     <p className="text-sm text-zinc-400">{l.description}</p>
                   )}
-                  <span className="mt-auto text-xs text-cyan-300">github.com →</span>
+                  <span className="mt-auto text-xs text-cyan-300">
+                    {l.href.includes("github.com") ? "github.com →" : "ouvrir →"}
+                  </span>
                 </a>
               ))}
             </div>
-          ) : (
-            <p className="text-zinc-300">{s.text}</p>
           )}
+          {s.text != null && <p className="text-zinc-300">{s.text}</p>}
         </section>
       ))}
     </div>
