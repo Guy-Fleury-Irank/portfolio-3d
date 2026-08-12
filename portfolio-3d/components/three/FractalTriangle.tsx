@@ -22,6 +22,10 @@ import { fractalVertexShader, fractalFragmentShader } from "./fractalShaders";
 
 /** Inclinaison douce de la structure en vue HOME (elle "flotte" en biais). */
 const FRACTAL_TILT = -0.35;
+/** M16 — a11y : rotation coupée si `prefers-reduced-motion` est actif. */
+const REDUCED_MOTION =
+  typeof window !== "undefined" &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 export default function FractalTriangle() {
   const group = useRef<THREE.Group>(null);
@@ -44,7 +48,7 @@ export default function FractalTriangle() {
 
   useFrame((_, delta) => {
     if (matRef.current) matRef.current.uniforms.uTime.value += delta;
-    if (group.current) {
+    if (group.current && !REDUCED_MOTION) {
       if (isRotating) {
         // Vue accueil : rotation lente continue.
         group.current.rotation.y += delta * 0.15;

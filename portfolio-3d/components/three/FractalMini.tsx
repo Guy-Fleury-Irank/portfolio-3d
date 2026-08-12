@@ -12,6 +12,11 @@ import { fractalVertexShader, fractalFragmentShader } from "./fractalShaders";
     « As above so below » : en traversant la sphère, on retrouve la même
     structure triangulaire — ici à une échelle intérieure. Reproduit le champ
     Sierpinski + les arêtes + une lueur centrale ; tourne lentement. */
+/** M16 — a11y : rotation coupée si `prefers-reduced-motion` est actif. */
+const REDUCED_MOTION =
+  typeof window !== "undefined" &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
 export default function FractalMini() {
   const groupRef = useRef<THREE.Group>(null);
   const matRef = useRef<THREE.ShaderMaterial>(null);
@@ -28,7 +33,9 @@ export default function FractalMini() {
 
   useFrame((_, delta) => {
     if (matRef.current) matRef.current.uniforms.uTime.value += delta;
-    if (groupRef.current) groupRef.current.rotation.y += delta * 0.3;
+    if (groupRef.current && !REDUCED_MOTION) {
+      groupRef.current.rotation.y += delta * 0.3;
+    }
   });
 
   const edgePoints = [

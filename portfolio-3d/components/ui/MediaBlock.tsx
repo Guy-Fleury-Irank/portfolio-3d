@@ -23,7 +23,7 @@ interface LightPlayerProps {
 const ReactPlayer = dynamic(() => import("react-player"), {
   ssr: false,
   loading: () => (
-    <div className="flex h-[340px] items-center justify-center rounded-lg border border-white/10 text-sm text-zinc-500">
+    <div className="flex h-full w-full items-center justify-center text-sm text-zinc-500">
       Chargement du lecteur…
     </div>
   ),
@@ -67,17 +67,19 @@ export default function MediaBlock({ media, accentColor }: MediaBlockProps) {
     <div className="mt-2 flex flex-col gap-4">
       {current && (
         <div className="overflow-hidden rounded-lg border border-white/10">
-          <ReactPlayer
-            url={current.url}
-            playing={playing}
-            controls
-            width="100%"
-            height="340px"
-            config={{ file: { attributes: { preload: "metadata" } } }}
-            onPlay={() => setPlaying(true)}
-            onPause={() => setPlaying(false)}
-            onEnded={() => setPlaying(false)}
-          />
+          <div className="aspect-video w-full">
+            <ReactPlayer
+              url={current.url}
+              playing={playing}
+              controls
+              width="100%"
+              height="100%"
+              config={{ file: { attributes: { preload: "metadata" } } }}
+              onPlay={() => setPlaying(true)}
+              onPause={() => setPlaying(false)}
+              onEnded={() => setPlaying(false)}
+            />
+          </div>
         </div>
       )}
 

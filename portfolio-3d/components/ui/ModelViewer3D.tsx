@@ -24,6 +24,11 @@ function Placeholder() {
  * Embed petit Canvas avec OrbitControls ; fallback procédural si le fichier
  * venait à manquer (pré-vol HEAD) — aucune erreur si l'asset est absent.
  */
+/** M16 — a11y : on coupe l'auto-rotation si `prefers-reduced-motion`. */
+const REDUCED_MOTION =
+  typeof window !== "undefined" &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
 export default function ModelViewer3D({
   src,
   accentColor,
@@ -45,7 +50,7 @@ export default function ModelViewer3D({
 
   return (
     <div className="mt-2 w-full overflow-hidden rounded-xl border border-white/10 bg-white/2">
-      <div className="h-[320px] w-full">
+      <div className="h-[240px] w-full sm:h-[320px]">
         <Canvas
           dpr={[1, 2]}
           camera={{ position: [2.4, 1.5, 2.8], fov: 40 }}
@@ -72,7 +77,7 @@ export default function ModelViewer3D({
             enablePan={false}
             minDistance={1.2}
             maxDistance={6}
-            autoRotate
+            autoRotate={!REDUCED_MOTION}
             autoRotateSpeed={1.4}
           />
         </Canvas>

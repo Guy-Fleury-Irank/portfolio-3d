@@ -3,7 +3,7 @@
 > **Document vivant de référence et de suivi incrémental.**
 > Ce fichier consolide l'intégralité des cahiers des charges (`contenu_portfolio_et_fractale.md`, `optimisation_assets_portfolio.md`, `prompt_cline_portfolio_scenario.md`) et documente **tout le travail effectué**, étape par étape, jusqu'à l'atteinte de l'objectif final.
 >
-> **Dernière mise à jour :** 10 Août 2026 — Milestones 0–15 ✅ (scénario complet + modèle 3D Blender + effet fractal « as above so below » interactionnel).
+> **Dernière mise à jour :** 10 Août 2026 — Milestones 0–16 ✅ (scénario complet + modèle 3D + fractal « as above so below » + polish responsive/60 FPS mobile).
 
 ---
 
@@ -385,9 +385,12 @@ portfolio-3d/
 
 > **📌 Récapitulatif Milestone 15 :** le concept « as above so below » est désormais interactionnel — on traverse la sphère et l'on retrouve la même structure triangulaire, à l'intérieur. Validation : `npm run build` ✅ (9 routes) • `npm run dev` ✅ HTTP 200 + bouton présent sur `/art`, `/travail`, `/argent`. Approche volontairement sans render-target (robuste, pipeline intacte).
 
-### Milestone 16 — Polish, Responsive & Performance
-- [ ] ⬜ 60 FPS mobile
-- [ ] ⬜ Ajustements responsive
+### Milestone 16 — Polish, Responsive & Performance ✅ COMPLÈTE (10 Août 2026)
+- [x] ✅ **60 FPS mobile** — `useIsMobile` (≤768px) dans `Scene` : dpr 1.5 (vs 2), `antialias` off, `multisampling` 4→2, DoF `resolutionScale` 0.5→0.35, `powerPreference: "high-performance"`.
+- [x] ✅ **Ajustements responsive** — lecteur média en `aspect-video` (100% largeur), viewer 3D `h-[240px] sm:h-[320px]`, cartes `sm:grid-cols-2` (déjà).
+- [x] ✅ **A11y / esthétique** — `prefers-reduced-motion` respecté (rotation triangle, mini-univers, auto-rotate viewer coupés) + focus-visible (anneaux cyan) + `scroll-behavior: smooth` dans `globals.css`.
+
+> **📌 Récapitulatif Milestone 16 :** la charge GPU baisse sur mobile (Bloom/DoF à résolution réduite, MSAA coupé) pour viser 60 FPS ; le layout est fluide en responsive ; l'accessibilité (mouvement réduit + focus) est soignée. Validation : `npm run build` ✅ (9 routes) • `npm run dev` ✅ HTTP 200 sur `/`, `/travail`, `/art`, `/argent`. Prochaine étape : **Milestone 17 — Export & Déploiement**.
 - [ ] ⬜ Retouches esthétiques finales
 
 ### Milestone 17 — Export & Déploiement

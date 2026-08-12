@@ -9,7 +9,7 @@
  */
 "use client";
 
-import { Suspense, useMemo, useRef } from "react";
+import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { DepthOfField, EffectComposer, SelectiveBloom, Selection } from "@react-three/postprocessing";
 import * as THREE from "three";
@@ -18,10 +18,24 @@ import SpaceEnvironment from "./SpaceEnvironment";
 import FractalTriangle from "./FractalTriangle";
 import CameraRig from "./CameraRig";
 
+/** M16 — détection mobile (≤ 768px) pour baisser la charge GPU. */
+function useIsMobile() {
+  const [mobile, setMobile] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 768px)");
+    const on = () => setMobile(mq.matches);
+    on();
+    mq.addEventListener("change", on);
+    return () => mq.removeEventListener("change", on);
+  }, []);
+  return mobile;
+}
+
 export default function Scene() {
   const dirLight = useRef<THREE.DirectionalLight>(null);
   const pointLight = useRef<THREE.PointLight>(null);
   const dofRef = useRef<DepthOfFieldEffect | null>(null);
+  const isMobile = useIsMobile();
 
   // Références stables (résolues par SelectiveBloom au montage).
   const bloomLights = useMemo(() => [dirLight, pointLight], []);
@@ -29,8 +43,8 @@ export default function Scene() {
   return (
     <Canvas
           camera={{ position: [0, 2.2, 7], fov: 50, near: 0.1, far: 500 }}
-          dpr={[1, 2]}
-          gl={{ antialias: true, alpha: true }}
+          dpr={isMobile ? 1.5 : [1, 2]}
+          gl={{ antialias: !isMobile, alpha: true, powerPreference: "high-performance" }}
           className="pointer-events-none!"
           // Milestone 6 : la 3D est interactive (raycaster) SANS bloquer l'UI HTML.
           // Écoute les événements sur le body (coordonnées client), le canvas
@@ -52,7 +66,7 @@ export default function Scene() {
           {/* CameraRig anime aussi le foyer DoF (focus point + bokeh + range). */}
           <CameraRig dofRef={dofRef} />
 
-          <EffectComposer multisampling={4}>
+          <EffectComposer multisampling={isMobile ? 2 : 4}>
             <SelectiveBloom
               lights={bloomLights}
               selectionLayer={8}
@@ -67,7 +81,7 @@ export default function Scene() {
               focusDistance={7}
               focusRange={9}
               bokehScale={3.5}
-              resolutionScale={0.5}
+              resolutionScale={isMobile ? 0.35 : 0.5}
             />
           </EffectComposer>
         </Suspense>
