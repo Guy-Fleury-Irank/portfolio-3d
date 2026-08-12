@@ -398,7 +398,11 @@ portfolio-3d/
 - [x] ✅ Vérification finale (HTTP 200 : `/`, `/travail`, `/art`, `/argent`, `/robots.txt`, `/sitemap.xml`)
 - [x] ✅ Code poussé sur GitHub → `github.com/Guy-Fleury-Irank/portfolio-3d` (br. `main`)
 - [x] ✅ Vercel « Root Directory » = `portfolio-3d` (l’app est dans un sous‑dossier du repo)
-- [ ] ⏳ Redéploiement Vercel (push `main`) + validation URL prod & canonical sitemap
+- [x] ✅ Redéploiement Vercel (push `main`) → build OK (`next build` Next 16.3, 8 GB)
+- [x] ✅ URL prod : `https://portfolio-3d-eight-smoky.vercel.app`
+  - routes 200, sitemap canonical sur le domaine Vercel, `robots.txt` OK, vidéo Range 206
+- [ ] 🔜 Eventuellement brancher un domaine custom (optionnel — le `.vercel.app` fonctionne déjà)
+
 
 
 
