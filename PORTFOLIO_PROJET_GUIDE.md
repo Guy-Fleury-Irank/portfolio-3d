@@ -395,10 +395,12 @@ portfolio-3d/
 
 ### Milestone 17 — Export & Déploiement
 - [x] ✅ Build production (`npm run build` → 9 routes statiques)
-- [x] ✅ Vérification finale (dev HTTP 200 : `/`, `/travail`, `/art`, `/argent`)
-- [x] ✅ Code poussé sur GitHub → `github.com/Guy-Fleury-Irank/portfolio-3d` (br. `main`, `4493aa4`)
-- [ ] ⏳ Import du repo dans Vercel (étape nécessitant votre compte — voir ci-dessous)
-- [ ] ⏳ Alias de production & validation sitemap/robots sur l'URL Vercel
+- [x] ✅ Vérification finale (HTTP 200 : `/`, `/travail`, `/art`, `/argent`, `/robots.txt`, `/sitemap.xml`)
+- [x] ✅ Code poussé sur GitHub → `github.com/Guy-Fleury-Irank/portfolio-3d` (br. `main`)
+- [x] ✅ Vercel « Root Directory » = `portfolio-3d` (l’app est dans un sous‑dossier du repo)
+- [ ] ⏳ Redéploiement Vercel (push `main`) + validation URL prod & canonical sitemap
+
+
 
 
 
