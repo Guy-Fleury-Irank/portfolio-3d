@@ -1,4 +1,11 @@
+import type { Metadata } from "next";
 import PillarFrame from "@/components/ui/PillarFrame";
+
+export const metadata: Metadata = {
+  title: "Travail — Guy Fleury Irankunda",
+  description:
+    "Engineering & Systems — projets JavaScript, Java (Spring Boot / Hibernate), TypeScript et HTML/CSS.",
+};
 
 export default function TravailPage() {
   return (

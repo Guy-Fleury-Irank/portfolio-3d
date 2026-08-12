@@ -3,7 +3,7 @@
 > **Document vivant de référence et de suivi incrémental.**
 > Ce fichier consolide l'intégralité des cahiers des charges (`contenu_portfolio_et_fractale.md`, `optimisation_assets_portfolio.md`, `prompt_cline_portfolio_scenario.md`) et documente **tout le travail effectué**, étape par étape, jusqu'à l'atteinte de l'objectif final.
 >
-> **Dernière mise à jour :** 10 Août 2026 — Milestones 0 ✅ + 1 ✅ + 3 ✅ + 4 ✅ + 5 ✅ + 6 ✅ + 7 ✅ + 8 ✅ + 9 ✅ + 10 ✅ + 11 ✅ + 12 ✅ (… / Art lecteurs media + audio spatial / Argent lectures + Digital Garden + ressources)
+> **Dernière mise à jour :** 10 Août 2026 — Milestones 0–13 ✅ (fractale, interaction, scroll, 3 piliers, lazy‑loading & SEO) — scénario du cahier des charges complet.
 
 ---
 
@@ -361,10 +361,13 @@ portfolio-3d/
 
 > **📌 Récapitulatif Milestone 12 :** pilier Argent sur les mécanismes partagés (playlist, cartes, bulletins) avec thème Émeraude/Data. Validation : `npm run build` ✅ (7 routes) • `npm run dev` ✅ HTTP 200 `/argent` (Predictive History + Digital Garden + Investopedia présents). Prochaine étape : **Milestone 13 — Lazy Loading & Optimisation**.
 
-### Milestone 13 — Lazy Loading & Optimisation
-- [ ] ⬜ React Suspense + Loader animé
-- [ ] ⬜ Dynamic imports des composants lourds
-- [ ] ⬜ Vérification du chargement différé
+### Milestone 13 — Lazy Loading & Optimisation ✅ COMPLÈTE (10 Août 2026)
+- [x] ✅ **React Suspense + Loader animé** — `<Loader />` (barre de progression + texte) comme fallback de `SceneCanvas`→`Scene` (dynamic) et `Suspense` autour de la scène R3F.
+- [x] ✅ **Dynamic imports des composants lourds** — Canvas 3D (`next/dynamic ssr:false`) + `react-player` (code‑splitté, chargé uniquement sur les routes avec média).
+- [x] ✅ **Vérification du chargement différé** — médias servis en statique, players lazy ; `preload="metadata"` sur les vidéos.
+- [x] ✅ **SEO** (bonus optimisation) — `app/sitemap.ts` + `app/robots.ts` + `metadata` par page (titre/description) + `viewport themeColor`.
+
+> **📌 Récapitulatif Milestone 13 :** 0..13 ✅ — le scénario du cahier des charges est entièrement fonctionnel (fractale + interaction + scroll + 3 piliers + opti). Validation : `npm run build` ✅ (9 routes statiques dont `/sitemap.xml` & `/robots.txt`) • `npm run dev` ✅ 200 (sitemap 4 URLs, robots, titres par page). Restent en option les extensions M14‑M17 : Modèle 3D Mug (Blender), Effet Fractal avancé (zoom‑in/out infini), Polish/Responsive (60 FPS mobile), Export & Déploiement.
 
 ### Milestone 14 — Modèle 3D Mug (Blender)
 - [ ] ⬜ Export .glb + compression Draco

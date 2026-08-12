@@ -1,4 +1,11 @@
+import type { Metadata } from "next";
 import PillarFrame from "@/components/ui/PillarFrame";
+
+export const metadata: Metadata = {
+  title: "Art — Guy Fleury Irankunda",
+  description:
+    "Formes, Espace & Son — création 3D Blender, musique au piano, chants liturgiques russes.",
+};
 
 export default function ArtPage() {
   return (

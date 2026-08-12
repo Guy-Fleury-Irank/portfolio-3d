@@ -1,4 +1,11 @@
+import type { Metadata } from "next";
 import PillarFrame from "@/components/ui/PillarFrame";
+
+export const metadata: Metadata = {
+  title: "Argent — Guy Fleury Irankunda",
+  description:
+    "Philosophie, Flux & Marchés — lectures Predictive History, digital garden & ressources d'exploration.",
+};
 
 export default function ArgentPage() {
   return (

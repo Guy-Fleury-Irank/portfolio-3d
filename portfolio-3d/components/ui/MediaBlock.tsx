@@ -16,6 +16,7 @@ interface LightPlayerProps {
   onPlay?: () => void;
   onPause?: () => void;
   onEnded?: () => void;
+  config?: object;
 }
 
 /** ReactPlayer (v3.4) chargé À LA DEMANDE (code-splitting) — lecteur léger. */
@@ -72,6 +73,7 @@ export default function MediaBlock({ media, accentColor }: MediaBlockProps) {
             controls
             width="100%"
             height="340px"
+            config={{ file: { attributes: { preload: "metadata" } } }}
             onPlay={() => setPlaying(true)}
             onPause={() => setPlaying(false)}
             onEnded={() => setPlaying(false)}

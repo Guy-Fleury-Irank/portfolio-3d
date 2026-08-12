@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import SceneCanvas from "@/components/three/SceneCanvas";
 import RouteViewSync from "@/components/ui/RouteViewSync";
@@ -18,6 +18,10 @@ export const metadata: Metadata = {
   title: "Guy Fleury Irankunda — Portfolio 3D",
   description:
     "Portfolio 3D interactif : Travail, Art, Argent — une structure triangulaire fractale dans l'espace profond.",
+};
+
+export const viewport: Viewport = {
+  themeColor: "#05060f",
 };
 
 export default function RootLayout({
