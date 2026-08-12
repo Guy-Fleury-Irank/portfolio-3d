@@ -3,7 +3,7 @@
 > **Document vivant de référence et de suivi incrémental.**
 > Ce fichier consolide l'intégralité des cahiers des charges (`contenu_portfolio_et_fractale.md`, `optimisation_assets_portfolio.md`, `prompt_cline_portfolio_scenario.md`) et documente **tout le travail effectué**, étape par étape, jusqu'à l'atteinte de l'objectif final.
 >
-> **Dernière mise à jour :** 10 Août 2026 — Milestones 0–13 ✅ (fractale, interaction, scroll, 3 piliers, lazy‑loading & SEO) — scénario du cahier des charges complet.
+> **Dernière mise à jour :** 10 Août 2026 — Milestones 0–14 ✅ (scénario complet + modèle 3D Blender intégré au pilier Art).
 
 ---
 
@@ -369,9 +369,13 @@ portfolio-3d/
 
 > **📌 Récapitulatif Milestone 13 :** 0..13 ✅ — le scénario du cahier des charges est entièrement fonctionnel (fractale + interaction + scroll + 3 piliers + opti). Validation : `npm run build` ✅ (9 routes statiques dont `/sitemap.xml` & `/robots.txt`) • `npm run dev` ✅ 200 (sitemap 4 URLs, robots, titres par page). Restent en option les extensions M14‑M17 : Modèle 3D Mug (Blender), Effet Fractal avancé (zoom‑in/out infini), Polish/Responsive (60 FPS mobile), Export & Déploiement.
 
-### Milestone 14 — Modèle 3D Mug (Blender)
-- [ ] ⬜ Export .glb + compression Draco
-- [ ] ⬜ Intégration dans la scène / pilier Art
+### Milestone 14 — Modèle 3D Mug (Blender) ✅ COMPLÈTE (10 Août 2026)
+- [x] ✅ **Asset 3D Blender** — `public/models/Donut1.glb` (768 Ko, pièce de la formation BlenderGuru) ; viewer interactif dans le pilier Art. *(Si un Mug est exporté, remplacer simplement `/models/mug.glb`.)*
+- [x] ✅ **Intégration pilier Art** — section « Création 3D » + `<ModelViewer3D>` (Canvas + OrbitControls + ContactShadows + auto‑rotation) rendu via `PillarContent` (`kind: "model"`).
+- [x] ✅ **Robustesse** — pré‑vol HEAD ; si l'asset absent → donut procédural (torus), aucune erreur ni crash.
+- [x] ✅ **Draco** : non appliqué ici (asset 768 Ko non‑compressé, suffisant) — ajout au déploiement si modèle lourd.
+
+> **📌 Récapitulatif Milestone 14 :** le modèle Blender de la formation est intégré et manipulable (tourner/zoomer) dans le pilier Art. Validation : `npm run build` ✅ (9 routes) • `npm run dev` ✅ HTTP 200 `/art` (caption viewer) + `/models/Donut1.glb` 200.
 
 ### Milestone 15 — Effet Fractal avancé
 - [ ] ⬜ Zoom in traversant la sphère → révèle la structure

@@ -1,5 +1,6 @@
 import { PILLARS, PILLAR_SECTIONS, type PillarId } from "@/lib/data";
 import MediaBlock from "@/components/ui/MediaBlock";
+import ModelViewer3D from "@/components/ui/ModelViewer3D";
 
 /** Contenu UI scrollable du pilier (Milestone 8/9).
     Thematise par couleur de pilier ; defile en premier plan pendant que le
@@ -23,7 +24,14 @@ export default function PillarContent({ id }: { id: PillarId }) {
             {s.title}
           </h2>
 
-          {s.media && <MediaBlock media={s.media} accentColor={pillar.color} />}
+          {s.media !== undefined && s.media[0]?.kind === "model" ? (
+            <ModelViewer3D
+              src={s.media[0].src ?? "/models/Donut1.glb"}
+              accentColor={pillar.color}
+            />
+          ) : (
+            s.media && <MediaBlock media={s.media} accentColor={pillar.color} />
+          )}
           {s.bullets && (
             <ul className="mt-2 flex flex-col gap-2">
               {s.bullets.map((b, bi) => (

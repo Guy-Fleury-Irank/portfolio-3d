@@ -73,9 +73,11 @@ export interface PillarMediaItem {
 }
 
 export interface PillarMedia {
-  kind: "video" | "playlist";
+  kind: "video" | "playlist" | "model";
   title?: string;
   items: PillarMediaItem[];
+  /** Asset 3D (GLB) pour `kind === "model"`. */
+  src?: string;
 }
 
 export interface PillarSection {
@@ -138,9 +140,17 @@ export const PILLAR_SECTIONS: Record<PillarId, PillarSection[]> = {
     },
   ],
   art: [
-    {
+        {
       title: "Création 3D",
-      text: "Modélisation Blender (Mug — formation autodidacte BlenderGuru).",
+      text: "Modélisation Blender (formation autodidacte BlenderGuru) — objet 3D interactif ci-dessous.",
+      media: [
+        {
+          kind: "model",
+          title: "Objet 3D — Blender (BlenderGuru)",
+          src: "/models/Donut1.glb",
+          items: [],
+        },
+      ],
     },
     {
       title: "Musique & Son",
