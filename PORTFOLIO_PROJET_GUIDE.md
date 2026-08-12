@@ -3,7 +3,7 @@
 > **Document vivant de référence et de suivi incrémental.**
 > Ce fichier consolide l'intégralité des cahiers des charges (`contenu_portfolio_et_fractale.md`, `optimisation_assets_portfolio.md`, `prompt_cline_portfolio_scenario.md`) et documente **tout le travail effectué**, étape par étape, jusqu'à l'atteinte de l'objectif final.
 >
-> **Dernière mise à jour :** 10 Août 2026 — Milestones 0–14 ✅ (scénario complet + modèle 3D Blender intégré au pilier Art).
+> **Dernière mise à jour :** 10 Août 2026 — Milestones 0–15 ✅ (scénario complet + modèle 3D Blender + effet fractal « as above so below » interactionnel).
 
 ---
 
@@ -377,9 +377,13 @@ portfolio-3d/
 
 > **📌 Récapitulatif Milestone 14 :** le modèle Blender de la formation est intégré et manipulable (tourner/zoomer) dans le pilier Art. Validation : `npm run build` ✅ (9 routes) • `npm run dev` ✅ HTTP 200 `/art` (caption viewer) + `/models/Donut1.glb` 200.
 
-### Milestone 15 — Effet Fractal avancé
-- [ ] ⬜ Zoom in traversant la sphère → révèle la structure
-- [ ] ⬜ Zoom out infini → univers contenu dans une sphère
+### Milestone 15 — Effet Fractal avancé ✅ COMPLÈTE (10 Août 2026)
+- [x] ✅ **Zoom in traversant la sphère → révèle la structure** — bouton « 🌀 Traverser la sphère — as above so below » : fondu GSAP + caméra logée à l'intérieur de la sphère (`beyondSphere`), face au **mini-univers fractal** (structure Sierpinski + arêtes + lueur) qui flotte dans chaque sphère.
+- [x] ✅ **Zoom out infini → univers contenu dans une sphère** — sphères légèrement translucides (`opacity 0.92`) ; chaque sommet contient son mini-univers vivant (perçu même depuis l'extérieur par sa lueur).
+- [x] ✅ Mini-univers : `<FractalMini>` (champ InstancedMesh + shader GLSL réutilisé, pulsation `uTime`, rotation lente) ajouté aux 3 sphères —*sans toucher à la pipeline Bloom/DoF*.
+- [x] ✅ Store `beyondSphere` + `CameraRig` (cible intérieure + DoF serré) + bouton partagé via `<PillarFrame>`.
+
+> **📌 Récapitulatif Milestone 15 :** le concept « as above so below » est désormais interactionnel — on traverse la sphère et l'on retrouve la même structure triangulaire, à l'intérieur. Validation : `npm run build` ✅ (9 routes) • `npm run dev` ✅ HTTP 200 + bouton présent sur `/art`, `/travail`, `/argent`. Approche volontairement sans render-target (robuste, pipeline intacte).
 
 ### Milestone 16 — Polish, Responsive & Performance
 - [ ] ⬜ 60 FPS mobile

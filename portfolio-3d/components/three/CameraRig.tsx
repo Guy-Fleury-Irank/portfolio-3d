@@ -37,6 +37,8 @@ export default function CameraRig({ dofRef }: CameraRigProps) {
   const view = useStore((s) => s.view);
   // Milestone 9 — progression du scroll GSAP (recul du triangle en background).
   const scroll = useStore((s) => s.pillarScrollProgress);
+  // M15 — traversée : on est logé à l'intérieur de la sphère cible.
+  const beyondSphere = useStore((s) => s.beyondSphere);
 
   const target = useRef(new THREE.Vector3(0, 2.2, 7));
   const lookAt = useRef(new THREE.Vector3(0, 0, 0));
@@ -62,17 +64,27 @@ export default function CameraRig({ dofRef }: CameraRigProps) {
 
     if (pillar) {
       const v = tmp.current.set(...pillar.position);
-      // Verrouillage sur le sommet, puis recul progressif (lerp vers homePos
-      // selon le scroll) — le triangle repart en arriere-plan (Milestone 9).
-      const backT = scroll * 0.5;
-      lockPos.current.set(v.x * 1.65, v.y + 0.9, v.z * 1.65);
-      target.current.lerpVectors(lockPos.current, homePos.current, backT);
-      lookAt.current.set(v.x, v.y, v.z);
-      dofDesired.current.set(v.x, v.y, v.z);
-      // DoF : en scrollant, on relache la profondeur de champ pour decouvrir
-      // le triangle qui recule (moins de flou, plus de perspective).
-      desiredRange = THREE.MathUtils.lerp(PILLAR_FOCUS_RANGE, HOME_FOCUS_RANGE, scroll);
-      desiredBokeh = THREE.MathUtils.lerp(PILLAR_BOKEH_SCALE, HOME_BOKEH_SCALE, scroll);
+      if (beyondSphere) {
+        // M15 — on a traversé la sphère : caméra à l'intérieur, face au
+        // mini-univers fractal central (as above so below).
+        target.current.set(v.x * 0.93, v.y + 0.05, v.z * 0.93);
+        lookAt.current.set(v.x, v.y, v.z);
+        dofDesired.current.set(v.x, v.y, v.z);
+        desiredRange = 1.1;
+        desiredBokeh = 2.2;
+      } else {
+        // Verrouillage sur le sommet, puis recul progressif (lerp vers homePos
+        // selon le scroll) — le triangle repart en arriere-plan (Milestone 9).
+        const backT = scroll * 0.5;
+        lockPos.current.set(v.x * 1.65, v.y + 0.9, v.z * 1.65);
+        target.current.lerpVectors(lockPos.current, homePos.current, backT);
+        lookAt.current.set(v.x, v.y, v.z);
+        dofDesired.current.set(v.x, v.y, v.z);
+        // DoF : en scrollant, on relache la profondeur de champ pour decouvrir
+        // le triangle qui recule (moins de flou, plus de perspective).
+        desiredRange = THREE.MathUtils.lerp(PILLAR_FOCUS_RANGE, HOME_FOCUS_RANGE, scroll);
+        desiredBokeh = THREE.MathUtils.lerp(PILLAR_BOKEH_SCALE, HOME_BOKEH_SCALE, scroll);
+      }
     } else {
       target.current.set(0, 2.2, 7);
       lookAt.current.set(0, 0, 0);

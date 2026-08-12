@@ -15,6 +15,7 @@ import { useFrame, type ThreeEvent } from "@react-three/fiber";
 import * as THREE from "three";
 import { Select } from "@react-three/postprocessing";
 import { Html, PositionalAudio } from "@react-three/drei";
+import FractalMini from "./FractalMini";
 import { useRouter } from "next/navigation";
 import { PILLARS } from "@/lib/data";
 import type { PillarId } from "@/lib/data";
@@ -130,11 +131,19 @@ export default function SpherePillar({ pillarId }: { pillarId: PillarId }) {
       {pillarId === "art" && artAudioEnabled && (
         <PositionalAudio ref={artAudio} url={ART_SPATIAL_AUDIO} distance={1} loop />
       )}
+      {/* M15 — mini-univers fractal logé à l'intérieur de la sphère. */}
+      <FractalMini />
       {/* Sphère visuelle (sélectionnée pour le Bloom ciblé). */}
       <Select enabled>
         <mesh ref={mesh}>
           <sphereGeometry args={[BASE_RADIUS, 48, 48]} />
-          <meshMatcapMaterial ref={material} matcap={matcap} color="#ffffff" />
+          <meshMatcapMaterial
+            ref={material}
+            matcap={matcap}
+            color="#ffffff"
+            transparent
+            opacity={0.92}
+          />
         </mesh>
       </Select>
 

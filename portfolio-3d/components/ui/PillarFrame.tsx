@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import BackButton from "@/components/ui/BackButton";
 import PillarContent from "@/components/ui/PillarContent";
 import PillarScrollScene from "@/components/ui/PillarScrollScene";
+import TraverseSphereButton from "@/components/ui/TraverseSphereButton";
 import { PILLARS, type PillarId } from "@/lib/data";
 
 type PillarFrameProps = {
@@ -61,6 +62,11 @@ export default function PillarFrame({
         </div>
 
         <p className="text-zinc-400">{description}</p>
+
+        {/* M15 — traversée de la sphère (caméra à l'intérieur, mini-univers). */}
+        <div className="flex justify-center">
+          <TraverseSphereButton />
+        </div>
 
         {/* Contenu UI scrollable (thematise par pilier, pilote le recul 3D) */}
         <PillarContent id={id} />

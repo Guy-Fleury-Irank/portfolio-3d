@@ -21,12 +21,16 @@ interface StoreState {
   /** M11 — audio spatial posé sur la sphère Art (activé par l'utilisateur). */
   artAudioEnabled: boolean;
 
+  /** M15 — caméra logée à l'intérieur de la sphère (révèle le mini-univers). */
+  beyondSphere: boolean;
+
   setView: (view: ViewState) => void;
   goHome: () => void;
   goToPillar: (p: PillarId) => void;
   setRotating: (rotating: boolean) => void;
   setPillarScrollProgress: (progress: number) => void;
   setArtAudioEnabled: (v: boolean) => void;
+  setBeyondSphere: (v: boolean) => void;
 }
 
 export const useStore = create<StoreState>((set) => ({
@@ -35,6 +39,7 @@ export const useStore = create<StoreState>((set) => ({
   isRotating: true,
   pillarScrollProgress: 0,
   artAudioEnabled: false,
+  beyondSphere: false,
 
   setView: (view) =>
     set({
@@ -52,4 +57,6 @@ export const useStore = create<StoreState>((set) => ({
   setPillarScrollProgress: (pillarScrollProgress) => set({ pillarScrollProgress }),
 
   setArtAudioEnabled: (artAudioEnabled) => set({ artAudioEnabled }),
+
+  setBeyondSphere: (beyondSphere) => set({ beyondSphere }),
 }));
