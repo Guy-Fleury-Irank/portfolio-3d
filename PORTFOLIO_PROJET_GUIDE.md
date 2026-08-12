@@ -353,10 +353,13 @@ portfolio-3d/
 
 > **📌 Récapitulatif Milestone 11 :** `MediaBlock` (client) rend la playlist (vidéo locale + YouTube) avec un lecteur light chargé à la demande ; l'audio spatial 3D est câblé sur la sphère Art derrière un toggle — l'utilisateur peut déposer son fichier dans `public/audio/` *après coup* sans aucune modification de code. Validation : `npm run build` ✅ + `npm run dev` ✅ HTTP 200 `/art` + mp4 statiques 200. Prochaine étape : **Milestone 12 — Pilier Argent**.
 
-### Milestone 12 — Pilier Argent
-- [ ] ⬜ Vidéos Predictive History (`react-player light`)
-- [ ] ⬜ Digital Garden (cartes, réflexions)
-- [ ] ⬜ Ressources externes
+### Milestone 12 — Pilier Argent ✅ COMPLÈTE (10 Août 2026)
+- [x] ✅ **Vidéos Predictive History** (`react-player light`) — playlist 4 vidéos YouTube via `MediaBlock`.
+- [x] ✅ **Digital Garden** (cartes, réflexions) — rendu `bullets` thématisé Émeraude (lois invisibles, liberté financière, marchés, cycles).
+- [x] ✅ **Ressources externes** — cartes `links` (Investopedia, History of Money) ; pied « ouvrir → » générique.
+- [x] ✅ Rendu `PillarContent` additif (media + bullets + links + texte).
+
+> **📌 Récapitulatif Milestone 12 :** pilier Argent sur les mécanismes partagés (playlist, cartes, bulletins) avec thème Émeraude/Data. Validation : `npm run build` ✅ (7 routes) • `npm run dev` ✅ HTTP 200 `/argent` (Predictive History + Digital Garden + Investopedia présents). Prochaine étape : **Milestone 13 — Lazy Loading & Optimisation**.
 
 ### Milestone 13 — Lazy Loading & Optimisation
 - [ ] ⬜ React Suspense + Loader animé
