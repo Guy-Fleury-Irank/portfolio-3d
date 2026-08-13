@@ -13,9 +13,10 @@ interface LightPlayerProps {
   loop?: boolean;
   width?: string | number;
   height?: string | number;
-  onPlay?: () => void;
+    onPlay?: () => void;
   onPause?: () => void;
   onEnded?: () => void;
+  light?: string | boolean;
   config?: object;
 }
 
@@ -54,7 +55,7 @@ export default function MediaBlock({ media, accentColor }: MediaBlockProps) {
   const [active, setActive] = useState(0);
   const [playing, setPlaying] = useState(false);
 
-  // Élément actif (recherche par index global).
+    // Élément actif (recherche par index global).
   const current = useMemo(() => {
     for (const g of playlist) {
       const hit = g.items.find((it) => it.idx === active);
@@ -62,6 +63,10 @@ export default function MediaBlock({ media, accentColor }: MediaBlockProps) {
     }
     return null;
   }, [playlist, active]);
+
+  // Détection YouTube : active `light` (thumbnail d'abord, iframe au clic)
+  // pour les URLs externes — évite de charger l'iframe tant que le user n'a pas cliqué.
+  const isYouTube = current?.url?.includes("youtu.be") || current?.url?.includes("youtube.com");
 
   return (
     <div className="mt-2 flex flex-col gap-4">
@@ -74,7 +79,11 @@ export default function MediaBlock({ media, accentColor }: MediaBlockProps) {
               controls
               width="100%"
               height="100%"
-              config={{ file: { attributes: { preload: "metadata" } } }}
+              light={isYouTube ? current.url.replace(/(\?.*)/, "") : undefined}
+              config={{
+                file: { attributes: { preload: "metadata" } },
+                youtube: { playerVars: { modestbranding: 1, rel: 0 } },
+              }}
               onPlay={() => setPlaying(true)}
               onPause={() => setPlaying(false)}
               onEnded={() => setPlaying(false)}

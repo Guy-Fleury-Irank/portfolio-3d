@@ -78,10 +78,10 @@ function basisFromAxis(axis: V3, matrix: THREE.Matrix4) {
   matrix.makeBasis(a, axis, b);
 }
 
-const FRACTAL_DEPTH = 6; // 3^6 = 729 unités
-const SPHERE_CLEARANCE = 0.28; // rayon² autour de chaque pilier (place pour les sphères)
-const CABLE_STRANDS = 3;
-const CABLE_PER_STRAND = 40;
+const FRACTAL_DEPTH = 2; // 3^2 = 9 unités (au lieu de 729 — évite le nuage de points illisible)
+const SPHERE_CLEARANCE = 0.6; // zone plus large autour de chaque sphère pilier (aéré)
+const CABLE_STRANDS = 2; // arêtes lumineuses plus rares
+const CABLE_PER_STRAND = 12; // fragments plus gros, moins denses
 
 export function buildFractalInstances(): FractalInstance[] {
   const V = PILLARS.map((p) => new THREE.Vector3(...p.position));
