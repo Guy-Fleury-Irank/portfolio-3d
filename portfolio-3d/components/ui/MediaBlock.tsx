@@ -13,11 +13,11 @@ interface LightPlayerProps {
   loop?: boolean;
   width?: string | number;
   height?: string | number;
-    onPlay?: () => void;
-  onPause?: () => void;
-  onEnded?: () => void;
   light?: string | boolean;
   config?: object;
+  onPlay?: () => void;
+  onPause?: () => void;
+  onEnded?: () => void;
 }
 
 /** ReactPlayer (v3.4) chargé À LA DEMANDE (code-splitting) — lecteur léger. */
@@ -55,7 +55,7 @@ export default function MediaBlock({ media, accentColor }: MediaBlockProps) {
   const [active, setActive] = useState(0);
   const [playing, setPlaying] = useState(false);
 
-    // Élément actif (recherche par index global).
+  // Élément actif (recherche par index global).
   const current = useMemo(() => {
     for (const g of playlist) {
       const hit = g.items.find((it) => it.idx === active);
@@ -66,7 +66,11 @@ export default function MediaBlock({ media, accentColor }: MediaBlockProps) {
 
   // Détection YouTube : active `light` (thumbnail d'abord, iframe au clic)
   // pour les URLs externes — évite de charger l'iframe tant que le user n'a pas cliqué.
-  const isYouTube = current?.url?.includes("youtu.be") || current?.url?.includes("youtube.com");
+  // IMPORTANT: pour les vidéos locales, on NE passe PAS la prop `light` (undefined
+  // fait bugger ReactPlayer — il ne rend rien).
+  const isYouTube =
+    current?.url?.includes("youtu.be") ||
+    current?.url?.includes("youtube.com");
 
   return (
     <div className="mt-2 flex flex-col gap-4">
@@ -79,7 +83,7 @@ export default function MediaBlock({ media, accentColor }: MediaBlockProps) {
               controls
               width="100%"
               height="100%"
-              light={isYouTube ? current.url.replace(/(\?.*)/, "") : undefined}
+              light={isYouTube ? true : undefined}
               config={{
                 file: { attributes: { preload: "metadata" } },
                 youtube: { playerVars: { modestbranding: 1, rel: 0 } },
@@ -133,11 +137,11 @@ export default function MediaBlock({ media, accentColor }: MediaBlockProps) {
           aria-pressed={artAudioEnabled}
           onClick={() => setArtAudioEnabled(!artAudioEnabled)}
           className="rounded-full border border-white/15 px-4 py-2 text-xs font-medium text-zinc-300 transition-colors hover:border-amber-300/60 hover:text-amber-200"
-          style={{
-            ...(artAudioEnabled
+          style={
+            artAudioEnabled
               ? { borderColor: accentColor, color: accentColor }
-              : {}),
-          }}
+              : {}
+          }
         >
           {artAudioEnabled
             ? "Audio spatial actif sur la sphère Art"
